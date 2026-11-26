@@ -157,10 +157,10 @@ body.menu-open{overflow:hidden}
 .pg5 .it:has(img+b){display:flex;justify-content:center;align-items:center;gap:10px}
 .pg5 .it:has(img+b) b{font-size:20px}   /* Les Roches: mark + name as one lock-up */
 .pg5{display:grid;grid-template-columns:repeat(5,1fr);row-gap:44px;column-gap:24px;align-items:center}
-.pg5 .it{display:grid;place-items:center;height:64px}
+.pg5 .it{display:grid;place-items:center;height:64px;min-width:0}
 @media (max-width:860px){.pg5{grid-template-columns:repeat(3,1fr);row-gap:32px}}
-@media (max-width:520px){.pg5{grid-template-columns:repeat(2,1fr)}}
-.pg5 img{display:block;height:var(--h,30px);width:auto;max-width:180px;object-fit:contain;filter:grayscale(1);opacity:.55;mix-blend-mode:multiply;transition:filter .35s,opacity .35s}
+@media (max-width:520px){.pg5{grid-template-columns:repeat(2,1fr);row-gap:20px;column-gap:16px}.pg5 img{height:calc(var(--h,30px) * .72)}.pg5 b,.pg5 .it:has(img+b) b{font-size:16px}.pg5 .it:has(img+b){gap:6px}}
+.pg5 img{display:block;height:var(--h,30px);width:auto;max-width:min(180px,100%);object-fit:contain;filter:grayscale(1);opacity:.55;mix-blend-mode:multiply;transition:filter .35s,opacity .35s}
 .pg5 img.inv{filter:invert(1) grayscale(1)}
 .pg5 .it:hover img{filter:none;opacity:1}
 .pg5 .it:hover img.inv{filter:invert(1)}
@@ -182,6 +182,7 @@ body.menu-open{overflow:hidden}
 
 /* JOIN + NEWSLETTER + FOOTER · one closing block */
 .join{background:var(--cobalt);padding-bottom:36px}
+@media (max-width:600px){.join{padding-bottom:120px}}   /* leave room for the Play music sleeve in the corner */
 .jn-g{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:clamp(48px,7vh,72px)}
 .jn-c{background:#fff;color:var(--ink);border-radius:22px;padding:30px 28px;display:flex;flex-direction:column;gap:12px;min-height:280px;scroll-margin-top:120px}
 .jn-c .n{font-family:var(--mono);font-size:13px;color:var(--cobalt);text-transform:uppercase;letter-spacing:.08em}
@@ -284,7 +285,7 @@ html.js .rv.in{opacity:1;transform:none}
 </defs></svg>
 
 <header class="top" id="top">
-  <a class="logo" href="#" aria-label="Costa del Tech home"><svg viewBox="-120 -836 3354 2465" aria-hidden="true"><use href="#cdtLogo"/></svg></a>
+  <a class="logo" href="#" aria-label="Costa del Tech home"><svg viewBox="0 0 3354 2465" aria-hidden="true"><use href="#cdtLogo"/></svg></a>
   <nav class="nav" aria-label="Main">
     <a href="#grow">About</a>
     <div class="dd" id="dd">
@@ -393,7 +394,7 @@ html.js .rv.in{opacity:1;transform:none}
     </div>
     <div class="nl rv" id="newsletter"><div><b>The monthly newsletter</b><span>News, interviews and the Events Digest — for 800+ people on the coast.</span></div><a class="bt wh" href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7470495908846104576" target="_blank" rel="noopener">Subscribe on LinkedIn <span>↗</span></a></div>
     <footer class="fb">
-      <div class="logos"><svg viewBox="-120 -836 3354 2465" aria-hidden="true"><use href="#cdtLogo"/></svg><img src="assets/fjx-tech-logo-white.png" alt="FJX Tech"></div>
+      <div class="logos"><svg viewBox="0 0 3354 2465" aria-hidden="true"><use href="#cdtLogo"/></svg><img src="assets/fjx-tech-logo-white.png" alt="FJX Tech"></div>
       <nav><a href="https://luma.com/user/costadeltech" target="_blank" rel="noopener">Luma</a><a href="https://www.linkedin.com/company/costadeltech" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.youtube.com/@FJX_Group" target="_blank" rel="noopener">YouTube</a><a href="mailto:press@thefjx.com">press@thefjx.com</a><a href="https://www.thefjx.com/privacy-policy" target="_blank" rel="noopener">Privacy</a></nav>
       <small>Costa del Tech™ is a community initiative of FJX Polo Tecnológico S.L., Málaga, Spain</small>
     </footer>
