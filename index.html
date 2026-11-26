@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Costa del Tech — the community behind Europe’s most unexpected tech hub</title>
+<meta name="description" content="Costa del Tech connects founders, engineers, tech leaders and international companies building on the Costa del Sol.">
+<meta property="og:title" content="Costa del Tech — the tech community of Málaga and the Costa del Sol">
+<meta property="og:image" content="https://alinamamina-design.github.io/costa-del-tech/video/trailer-poster.jpg">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=Geist+Mono:wght@400;500&family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* Structure follows config.figma.com: a quiet light info block,
+   then a full-bleed 16:9 video. Palette = Costa del Tech MVP. */
+:root{
+  --ink:#0B1730; --navy:#0F1E3D; --navy-2:#13305F; --blue:#1F5FBF; --sky:#5AA9FF; --pale:#EEF5FF; --cobalt:#1F3FA8; --wall:#F6F5F2;
+  --sans:'Geist',system-ui,sans-serif; --display:'Poppins',system-ui,sans-serif; --mono:'Geist Mono',ui-monospace,monospace;
+  --pad:clamp(20px,2.1vw,30px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-weight:300;background:var(--ink);color:var(--navy);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+/* ── HEADER ───────────────────────────── */
+.top{position:fixed;top:0;left:0;right:0;z-index:10;display:flex;justify-content:space-between;align-items:center;
+  height:72px;padding:0 var(--pad);background:rgba(31,63,168,.18);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#fff;transition:background .3s,height .3s}
+.top.dark{height:56px;background:rgba(238,245,255,.5);color:var(--ink)}
+
+.top.dark .nav .cta{background:var(--cobalt);color:#fff}
+.logo{display:flex;align-items:center;color:inherit}
+.logo svg{height:40px;width:auto;display:block;transition:height .3s}
+.top.dark .logo svg{height:32px}   /* official Costa del Tech wordmark, as in the MVP */
+.nav{display:flex;align-items:center;gap:24px;font-size:15px;letter-spacing:-.01em}
+.nav a{opacity:.85;transition:opacity .2s}
+.nav a:hover{opacity:1}
+.nav .cta{opacity:1;border:0;background:#fff;color:var(--cobalt);padding:9px 16px;border-radius:999px;font-weight:400;transition:background .2s,color .2s}
+.nav .cta:hover{background:var(--pale)}
+.nav .ext{opacity:.6;font-size:.85em;margin-left:2px}
+/* mobile menu: burger → full-screen cobalt panel */
+.burger{display:none;width:44px;height:44px;margin-right:-10px;border:0;background:none;color:inherit;cursor:pointer;position:relative}
+.burger i{position:absolute;left:12px;right:12px;height:2px;border-radius:2px;background:currentColor;transition:transform .35s cubic-bezier(.7,0,.2,1),top .35s,opacity .2s}
+.burger i:nth-child(1){top:16px}.burger i:nth-child(2){top:21px}.burger i:nth-child(3){top:26px}
+.menu-open .burger i:nth-child(1){top:21px;transform:rotate(45deg)}
+.menu-open .burger i:nth-child(2){opacity:0}
+.menu-open .burger i:nth-child(3){top:21px;transform:rotate(-45deg)}
+.mnav{position:fixed;inset:0;z-index:9;background:var(--cobalt);color:#fff;padding:96px var(--pad) 32px;display:flex;flex-direction:column;
+  clip-path:inset(0 0 100% 0);transition:clip-path .55s cubic-bezier(.7,0,.2,1);overflow-y:auto}
+.menu-open .mnav{clip-path:inset(0 0 0 0)}
+.mnav[hidden]{display:none}
+.mnav a,.mnav summary{font-family:var(--display);font-weight:500;font-size:clamp(30px,9vw,44px);letter-spacing:-.03em;line-height:1.1;padding:10px 0;display:block;cursor:pointer;list-style:none;
+  opacity:0;transform:translateY(16px);transition:opacity .4s,transform .45s cubic-bezier(.2,.9,.25,1)}
+.mnav summary::-webkit-details-marker{display:none}
+.mnav summary::after{content:"+";float:right;font-weight:300;opacity:.7;transition:transform .3s}
+.mnav details[open] summary::after{transform:rotate(45deg)}
+.mnav details a{font-size:20px;padding:8px 0 8px 18px;opacity:.85}
+.mnav details a small{display:block;font-family:var(--sans);font-size:14px;font-weight:300;opacity:.7;letter-spacing:0}
+.mnav .ext{font-size:.6em;opacity:.6}
+.mnav .m-cta{margin-top:auto;padding-top:28px}
+.mnav .m-cta a{display:inline-block;font-size:18px;background:#fff;color:var(--cobalt);padding:16px 26px;border-radius:999px;letter-spacing:0}
+.menu-open .mnav a,.menu-open .mnav summary{opacity:1;transform:none}
+.menu-open .mnav>*:nth-child(1) *{transition-delay:.15s}.menu-open .mnav>*:nth-child(2) summary{transition-delay:.2s}
+.menu-open .mnav>*:nth-child(3){transition-delay:.25s}.menu-open .mnav>*:nth-child(4){transition-delay:.3s}
+.menu-open .mnav>*:nth-child(5){transition-delay:.35s}.menu-open .mnav>*:nth-child(6) a{transition-delay:.4s}
+.menu-open .top{background:transparent!important;color:#fff!important;-webkit-backdrop-filter:none;backdrop-filter:none}
+.menu-open .top .nav .cta{opacity:0;pointer-events:none}
+body.menu-open{overflow:hidden}
+/* Community dropdown: Member / Partner / Collaborator */
+.dd{position:relative}
+.dd-b{font:inherit;color:inherit;background:none;border:0;cursor:pointer;display:flex;align-items:center;gap:6px;padding:0;opacity:.85}
+.dd-b:hover{opacity:1}
+
+.dd-b svg{width:9px;height:9px;transition:transform .25s}
+.dd:hover .dd-b svg,.dd.open .dd-b svg{transform:rotate(180deg)}
+.dd-m{position:absolute;top:calc(100% + 14px);left:-18px;min-width:250px;padding:8px;border-radius:14px;background:#fff;color:var(--ink);box-shadow:0 20px 50px rgba(11,23,48,.22);
+  opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s,transform .2s,visibility .2s}
+.dd-m::before{content:"";position:absolute;left:0;right:0;top:-16px;height:16px}   /* keeps hover alive across the gap */
+.dd:hover .dd-m,.dd.open .dd-m,.dd:focus-within .dd-m{opacity:1;visibility:visible;transform:none}
+.dd-m a{display:grid;gap:2px;padding:10px 12px;border-radius:9px;border:0!important}
+.dd-m a:hover{background:var(--pale)}
+.dd-m b{font-weight:500;font-size:15px}.dd-m small{font-size:13px;opacity:.6}
+
+/* ── HERO · FULL COBALT (like the hub cushion) ───── */
+/* the hero stays pinned while the next block slides up over it (if the hero is taller than the screen, it scrolls to its bottom first) */
+.intro{position:sticky;top:min(0px,calc(100vh - 660px));z-index:0;transform-origin:50% 0;min-height:max(100vh,660px);background:var(--cobalt);color:#fff;overflow:hidden;
+  padding:96px var(--pad) var(--pad);display:flex;flex-direction:column;justify-content:flex-end;gap:5vh}
+.intro>*:not(.leafbox){position:relative;z-index:1}
+.leafbox{position:absolute;right:-9vw;top:-6vh;width:min(70vw,980px);z-index:0;pointer-events:none}
+.leafbox svg{display:block;width:100%;aspect-ratio:2700/2073;overflow:visible;transform-origin:99.5% 98.3%}  /* pivot = tip of the stem */
+.leafbox .solid{fill:#fff;opacity:.16}
+.wordmark{height:clamp(110px,14vw,220px);margin-left:-1px;cursor:default}
+.wordmark.tech-text{position:relative;width:100%;touch-action:pan-y;user-select:none}
+.tech-text-canvas{display:block;width:100%;height:100%}
+.kicker{font-family:var(--mono);font-size:14px;line-height:1.3;text-transform:uppercase;max-width:34ch}
+.row{display:grid;grid-template-columns:repeat(3,1fr) auto;gap:24px;align-items:end;font-size:16px;line-height:1.35;letter-spacing:-.01em}
+.row b{font-weight:400}
+.row .mute{opacity:.65}
+.row .btn{grid-column:-2/-1}
+/* hero CTA: white; the arrow nudges on hover, the GSAP magnet below moves it */
+.row .btn{position:relative;overflow:hidden;isolation:isolate;transition:transform .25s cubic-bezier(.2,.9,.25,1.2),box-shadow .25s,background .2s}
+.row .btn:hover{box-shadow:0 12px 28px rgba(11,23,48,.3)}   /* movement comes from the GSAP magnet below */
+.row .btn .mag-in{display:inline-flex;align-items:center;gap:10px;pointer-events:none}
+.row .btn .arr{display:inline-block;transition:transform .3s cubic-bezier(.2,.9,.25,1.4)}
+.row .btn:hover .arr{transform:translateX(5px)}
+
+.btn{justify-self:end;display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:500;font-size:15px;background:#fff;color:var(--cobalt);padding:13px 20px;border-radius:2px;transition:background .2s}
+.btn:hover{background:var(--pale)}
+
+/* ── EVENTS · editorial list (events-variants D). Hover a row → its photo follows the cursor.
+   Some photos are stand-ins from other events until Natalia sends the real ones. ── */
+.events{position:relative;z-index:1;background:var(--wall);color:var(--ink);padding:clamp(90px,13vh,150px) var(--pad)}
+.ev-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:48px}
+.ev-t{font-family:var(--display);font-weight:600;font-size:clamp(48px,6vw,100px);line-height:.95;letter-spacing:-.045em}
+.ev-t span{color:var(--cobalt)}
+.ev-all{font-family:var(--mono);font-weight:500;font-size:15px;opacity:.85;transition:opacity .2s,color .2s}
+.ev-all:hover{opacity:1;color:var(--cobalt)}
+.ev-sec{margin:52px 0 12px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;opacity:.55}
+.ev-head+.ev-sec{margin-top:0}
+.ev-list{border-top:1px solid var(--ink)}
+.ev-row{display:grid;grid-template-columns:150px 1fr minmax(0,320px) 190px;gap:24px;align-items:center;padding:24px 0;border-bottom:1px solid rgba(11,23,48,.14);transition:padding .3s,background .3s}
+.ev-row:hover{padding-left:16px;padding-right:16px;background:#fff}
+.ev-row .dt{font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+.ev-row.up .dt{color:var(--cobalt)}
+.ev-row h4{font-family:var(--display);font-weight:500;font-size:clamp(19px,1.9vw,27px);letter-spacing:-.015em;line-height:1.2}
+.ev-row .nt{font-size:15px;line-height:1.45;opacity:.65}
+.ev-go{justify-self:end;display:inline-flex;align-items:center;gap:10px;background:var(--cobalt);color:#fff;font-family:var(--mono);font-weight:500;font-size:13px;text-transform:uppercase;letter-spacing:.08em;padding:15px 22px;white-space:nowrap;transition:background .2s}
+.ev-go span{transition:transform .25s}
+.ev-row.open:hover .ev-go{background:var(--ink)}.ev-row.open:hover .ev-go span{transform:translateX(4px)}
+.peek{position:fixed;z-index:40;left:0;top:0;width:300px;aspect-ratio:4/3;border-radius:12px;overflow:hidden;pointer-events:none;opacity:0;
+  transform:translate(-50%,-50%) scale(.92);transition:opacity .25s,transform .25s;box-shadow:0 20px 50px rgba(11,23,48,.3)}
+.peek.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.peek img{width:100%;height:100%;object-fit:cover}
+@media (max-width:860px){.ev-row{grid-template-columns:1fr;gap:6px 16px}.ev-row .dt,.ev-row h4,.ev-row .nt{grid-column:1}.ev-go{grid-column:1;justify-self:start;margin-top:10px}.peek{display:none}}
+
+/* ══ REST OF THE PAGE · hero · video · events (+ partners) · team · join + newsletter + footer ══ */
+.grow .film-note{margin-top:22px;font-family:var(--mono);font-size:12.5px;line-height:1.7;text-transform:uppercase;letter-spacing:.05em;opacity:.6}
+.grow .film-note a{border-bottom:1px solid currentColor}
+.sec{position:relative;z-index:1;padding:clamp(90px,13vh,150px) var(--pad);color:var(--ink)}
+.sk{font-family:var(--mono);font-size:14px;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:10px}
+.sk i{font-style:normal;color:var(--cobalt)}
+.st{font-family:var(--display);font-weight:600;font-size:clamp(48px,6.4vw,110px);line-height:.92;letter-spacing:-.045em;margin-top:22px}
+.st span{color:var(--cobalt)}
+.bt{display:inline-flex;align-items:center;gap:12px;font-family:var(--mono);font-weight:500;font-size:13px;text-transform:uppercase;letter-spacing:.08em;padding:16px 24px;transition:background .2s,color .2s;white-space:nowrap}
+.bt span{transition:transform .25s}.bt:hover span{transform:translateX(4px)}
+.bt.cob{background:var(--cobalt);color:#fff}.bt.cob:hover{background:var(--ink)}
+.bt.wh{background:#fff;color:var(--ink)}.bt.wh:hover{background:var(--pale)}
+.dk{color:#fff}.dk .sk i,.dk .st span{color:var(--sky)}
+
+/* EVENTS · friends & partners — open 5×3 grid, no lines; grey → own colours on hover */
+.cohost{margin-top:clamp(90px,12vh,130px)}
+.sh{font-family:var(--display);font-weight:500;font-size:clamp(28px,2.8vw,42px);letter-spacing:-.03em;line-height:1.1;margin:16px 0 40px}
+.pg5 b{font-family:var(--display);font-weight:600;font-size:21px;letter-spacing:-.01em;white-space:nowrap;color:var(--ink);opacity:.55;transition:opacity .35s}
+.pg5 .it:hover b{opacity:1}
+.pg5 .it:has(img+b){display:flex;justify-content:center;align-items:center;gap:10px}
+.pg5 .it:has(img+b) b{font-size:20px}   /* Les Roches: mark + name as one lock-up */
+.pg5{display:grid;grid-template-columns:repeat(5,1fr);row-gap:44px;column-gap:24px;align-items:center}
+.pg5 .it{display:grid;place-items:center;height:64px}
+@media (max-width:860px){.pg5{grid-template-columns:repeat(3,1fr);row-gap:32px}}
+@media (max-width:520px){.pg5{grid-template-columns:repeat(2,1fr)}}
+.pg5 img{display:block;height:var(--h,30px);width:auto;max-width:180px;object-fit:contain;filter:grayscale(1);opacity:.55;mix-blend-mode:multiply;transition:filter .35s,opacity .35s}
+.pg5 img.inv{filter:invert(1) grayscale(1)}
+.pg5 .it:hover img{filter:none;opacity:1}
+.pg5 .it:hover img.inv{filter:invert(1)}
+
+/* TEAM · round photos on an offset sky disc */
+.team{background:var(--wall);display:grid;grid-template-columns:1fr;gap:0;padding-top:0;box-shadow:0 -3px 0 var(--wall);  /* covers a sub-pixel seam where the pinned cobalt hero shows through */
+  padding-bottom:clamp(90px,13vh,150px)}
+.tm-g{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.tm-g figure{display:grid;justify-items:start;gap:22px}
+/* round photo over a sky disc offset down-right; on hover the disc turns cobalt and the photo gets its colour */
+.disc{position:relative;width:clamp(120px,11vw,156px);aspect-ratio:1}
+.disc::before{content:"";position:absolute;inset:0;border-radius:50%;background:var(--sky);transform:translate(10px,10px);transition:transform .45s,background .45s}
+.disc .ph{position:relative;width:100%;height:100%;border-radius:50%;overflow:hidden;background:#ddd}
+.disc img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1);transition:filter .45s}
+.tm-g figure:hover .disc::before{transform:translate(6px,6px);background:var(--cobalt)}
+.tm-g figure:hover .disc img{filter:none}
+.tm-g b{display:block;font-family:var(--display);font-weight:500;font-size:19px;letter-spacing:-.01em}
+.tm-g small{display:block;margin-top:3px;font-size:14.5px;line-height:1.4;opacity:.6}
+
+/* JOIN + NEWSLETTER + FOOTER · one closing block */
+.join{background:var(--cobalt);padding-bottom:36px}
+.jn-g{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:clamp(48px,7vh,72px)}
+.jn-c{background:#fff;color:var(--ink);border-radius:22px;padding:30px 28px;display:flex;flex-direction:column;gap:12px;min-height:280px;scroll-margin-top:120px}
+.jn-c .n{font-family:var(--mono);font-size:13px;color:var(--cobalt);text-transform:uppercase;letter-spacing:.08em}
+.jn-c h3{font-family:var(--display);font-weight:600;font-size:clamp(26px,2.4vw,34px);letter-spacing:-.03em;line-height:1.05}
+.jn-c p{font-size:16px;line-height:1.5;opacity:.7}
+.jn-c .bt{margin-top:auto;align-self:flex-start}
+.nl{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;margin-top:14px;padding:26px 28px;border-radius:22px;background:rgba(255,255,255,.08)}
+.nl b{font-family:var(--display);font-weight:500;font-size:clamp(20px,1.8vw,24px);letter-spacing:-.015em}
+.nl span{display:block;margin-top:4px;font-size:15px;opacity:.7}
+.fb{display:flex;justify-content:space-between;align-items:center;gap:20px 32px;flex-wrap:wrap;margin-top:clamp(70px,10vh,110px);padding-top:28px;border-top:1px solid rgba(255,255,255,.18);font-size:13.5px}
+.fb .logos{display:flex;align-items:center;gap:20px}
+.fb .logos svg{height:28px;width:auto;color:#fff}
+.fb .logos img{height:24px;width:auto;opacity:.85}
+.fb nav{display:flex;gap:20px;flex-wrap:wrap}
+.fb nav a{opacity:.7;transition:opacity .2s}.fb nav a:hover{opacity:1}
+.fb small{flex-basis:100%;font-size:12.5px;opacity:.5}
+
+/* header over the dark sections: dark glass + white text */
+.top.dark.ondark{background:rgba(11,23,48,.45);color:#fff}
+.top.dark.ondark .nav .cta{background:#fff;color:var(--ink)}
+
+/* reveal */
+html.js .rv{opacity:0;transform:translateY(28px);transition:opacity .8s,transform .8s cubic-bezier(.2,.7,.2,1)}
+html.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html.js .rv{opacity:1;transform:none;transition:none}}
+
+@media (max-width:1100px){.tm-g{grid-template-columns:1fr 1fr}}
+@media (max-width:900px){
+  
+  .jn-g{grid-template-columns:1fr}.jn-c{min-height:0}
+}
+@media (max-width:520px){.tm-g{grid-template-columns:1fr 1fr;gap:32px 16px}.disc{width:112px}.tm-g b{font-size:17px}.tm-g small{font-size:13.5px}}
+
+/* ── SECOND BLOCK · GROWING WINDOW ─────
+   The teaser starts as a card on the right and grows to full screen while
+   the block is pinned. The whole frame is scaled (never cropped). */
+.intro::after{content:"";position:absolute;inset:0;z-index:3;background:#0B1730;opacity:var(--cover,0);pointer-events:none}
+.grow{height:320vh;position:relative;z-index:1;background:var(--pale);border-radius:28px 28px 0 0;overflow:clip;box-shadow:0 -30px 70px rgba(11,23,48,.28)}
+.grow .stick{position:sticky;top:0;height:100vh;overflow:hidden;transition:background .5s}
+.grow .stick.dark{background:var(--ink)}
+.grow .copy{position:absolute;left:var(--pad);top:clamp(100px,16vh,150px);max-width:min(600px,44vw);z-index:2}
+.grow h2{font-weight:300;font-size:clamp(32px,4.2vw,60px);letter-spacing:-.035em;line-height:1.02}
+.grow .copy p{margin-top:20px;font-size:16px;line-height:1.5;max-width:42ch;opacity:.7}
+.win{position:absolute;left:0;top:0;overflow:hidden;transform-origin:0 0;will-change:transform;background:var(--ink);container-type:size}
+.win .poster{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover;transition:opacity .6s;pointer-events:none}
+.win.on .poster{opacity:0}
+.win video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.shade{position:absolute;inset:0;background:linear-gradient(transparent 40%,rgba(11,23,48,.75));opacity:0;transition:opacity .5s;pointer-events:none}
+.shade.show{opacity:1}
+.over{position:absolute;z-index:3;left:var(--pad);right:var(--pad);bottom:clamp(80px,12vh,120px);color:var(--pale);display:grid;grid-template-columns:repeat(4,1fr);gap:20px;border-top:1px dashed rgba(238,245,255,.35);opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s;pointer-events:none}
+.over.show{opacity:1;transform:none;pointer-events:auto}
+.over div{padding-top:18px}
+.over strong{display:block;font-weight:300;font-size:clamp(34px,4vw,56px);letter-spacing:-.04em;color:var(--sky)}
+.over span{font-family:var(--mono);font-size:12px;text-transform:uppercase;opacity:.8}
+.cap{position:absolute;z-index:3;left:var(--pad);bottom:var(--pad);font-family:var(--mono);font-size:13px;text-transform:uppercase;color:var(--pale);display:flex;gap:14px;align-items:center;opacity:0;transition:opacity .5s;pointer-events:none}
+.cap.show{opacity:1;pointer-events:auto}
+.cap .n{opacity:.6}
+.cap .t{border-bottom:1px dashed currentColor}
+.cap:hover .t{border-bottom-style:solid}
+/* sound: a small glass button bottom-right, shown once the trailer fills the screen; the word appears on hover */
+.snd{position:absolute;z-index:3;right:var(--pad);bottom:calc(var(--pad) - 9px);height:34px;min-width:34px;padding:0 9px;border-radius:17px;
+  border:1px solid rgba(255,255,255,.3);background:rgba(11,23,48,.25);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff;cursor:pointer;
+  display:flex;align-items:center;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+  opacity:0;pointer-events:none;transition:opacity .4s,background .2s,border-color .2s}
+.stick.full .snd{opacity:1;pointer-events:auto}
+.snd:hover{background:rgba(11,23,48,.5);border-color:rgba(255,255,255,.55)}
+.snd svg{width:15px;height:15px;flex:none}
+.snd .snd-t{max-width:0;overflow:hidden;white-space:nowrap;transition:max-width .3s,margin .3s}
+.snd:hover .snd-t,.snd:focus-visible .snd-t{max-width:90px;margin-left:7px}
+.snd .on-i,.snd.on .off-i{display:none}.snd.on .on-i{display:block}
+.snd:focus-visible{outline:2px solid var(--sky);outline-offset:3px}
+
+/* ── MOBILE ───────────────────────────── */
+@media (max-width:760px){
+  .logo svg{height:34px}
+  .nav a:not(.cta),.nav .dd{display:none}
+  .burger{display:block}
+  .top .nav{gap:6px}
+  .nav .cta{padding:8px 14px;font-size:14px}
+  .intro{gap:30px}
+  .leafbox{width:130vw;right:-45vw;top:8vh}
+  .events{grid-template-columns:1fr}
+  .kicker{font-size:12px}
+  .row{grid-template-columns:1fr 1fr;row-gap:20px;font-size:15px;align-items:start}
+  .nav a:not(.cta){display:none}
+  .row .btn{grid-column:1/-1;justify-self:start}
+  .grow .copy{max-width:none;right:var(--pad)}
+  .over{grid-template-columns:1fr 1fr;row-gap:24px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.grow{height:auto}}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <!-- Costa del Tech palm leaf (traced from the MVP logo artwork), turned as on the hub cushion -->
+  <path id="leafD" transform="translate(0 2700) scale(.1 -.1)" d="M20250 26978 c-29 -46 -37 -65 -43 -106 -8 -65 -111 -176 -252 -274 -27 -19 -88 -61 -135 -93 -47 -32 -125 -91 -175 -130 -49 -39 -146 -116 -215 -170 -215 -169 -310 -246 -470 -379 -131 -110 -292 -248 -310 -266 -3 -3 -57 -50 -120 -105 -219 -191 -456 -412 -665 -619 -88 -88 -182 -177 -210 -199 -27 -21 -81 -72 -118 -113 -93 -100 -201 -169 -422 -270 -57 -26 -68 -27 -210 -27 -173 0 -255 13 -450 74 -71 22 -150 46 -175 54 -46 14 -171 44 -295 71 -38 9 -88 19 -110 24 -44 10 -178 35 -265 49 -30 5 -136 23 -235 40 -99 18 -220 38 -270 46 -49 8 -133 22 -185 30 -433 71 -808 116 -1255 151 -110 8 -252 19 -315 24 -419 33 -579 32 -1780 -9 -162 -6 -452 -13 -645 -16 -192 -3 -413 -10 -490 -15 -77 -6 -210 -15 -295 -20 -85 -6 -200 -17 -255 -25 -131 -19 -276 -41 -400 -60 -55 -9 -143 -23 -195 -31 -52 -8 -126 -19 -165 -25 -38 -5 -90 -14 -115 -19 -25 -5 -108 -18 -185 -30 -77 -12 -160 -25 -185 -31 -25 -5 -76 -14 -115 -19 -38 -5 -110 -16 -160 -25 -49 -8 -130 -22 -180 -30 -181 -29 -221 -36 -265 -45 -25 -5 -94 -19 -155 -30 -135 -25 -164 -32 -490 -114 -345 -86 -473 -122 -550 -156 -19 -9 -106 -46 -230 -97 -58 -25 -124 -37 -365 -68 -166 -21 -405 -59 -555 -89 -38 -8 -106 -21 -150 -30 -146 -29 -379 -82 -465 -106 -180 -49 -244 -70 -385 -122 -226 -84 -249 -101 -243 -180 5 -72 41 -73 403 -12 344 58 624 92 920 114 77 5 203 15 280 21 171 14 621 7 935 -15 124 -9 358 -20 520 -26 162 -5 304 -12 315 -14 11 -3 77 -12 145 -21 69 -8 157 -19 195 -25 39 -5 91 -9 118 -10 32 0 47 -4 47 -13 0 -11 -52 -15 -252 -21 -773 -21 -1531 -73 -2038 -141 -336 -45 -569 -67 -890 -85 -226 -13 -507 -37 -575 -50 -27 -6 -102 -19 -165 -30 -149 -27 -235 -48 -275 -67 -78 -37 -71 -143 10 -159 40 -7 41 -11 18 -51 -21 -37 -11 -80 23 -95 18 -9 45 -8 107 1 231 34 578 56 658 42 36 -6 142 -11 235 -12 207 0 251 -5 644 -64 120 -19 260 -39 405 -60 55 -8 147 -21 205 -30 58 -8 155 -22 215 -30 176 -24 251 -37 520 -91 222 -45 503 -82 885 -119 85 -8 216 -22 290 -30 74 -9 163 -18 198 -22 43 -4 62 -10 62 -19 0 -11 -25 -14 -112 -15 -212 -1 -703 -18 -823 -28 -66 -5 -241 -15 -390 -21 -785 -33 -1314 -85 -1655 -163 -36 -8 -119 -27 -185 -41 -66 -14 -133 -30 -150 -35 -16 -6 -55 -15 -85 -20 -30 -6 -82 -17 -115 -25 -33 -8 -94 -22 -135 -31 -238 -54 -275 -66 -315 -98 -41 -33 -47 -80 -16 -118 l19 -24 314 -6 c281 -5 496 -18 778 -48 52 -6 103 -11 113 -11 9 0 17 -6 17 -14 0 -10 -20 -15 -72 -19 -40 -3 -126 -12 -190 -21 -145 -20 -317 -42 -468 -61 -243 -31 -502 -70 -790 -120 -217 -37 -259 -44 -335 -58 -44 -8 -107 -20 -140 -26 -69 -13 -192 -38 -250 -51 -22 -6 -80 -19 -130 -30 -49 -11 -106 -24 -125 -30 -112 -30 -166 -46 -263 -77 -205 -65 -247 -91 -247 -153 0 -51 22 -76 88 -97 78 -25 1719 -29 1937 -5 136 15 289 14 995 -8 554 -17 620 -20 620 -36 0 -8 -8 -14 -17 -14 -116 -2 -498 -44 -678 -75 -169 -29 -350 -54 -455 -65 -58 -6 -168 -17 -245 -25 -77 -8 -205 -21 -285 -30 -80 -9 -201 -22 -270 -30 -713 -79 -1238 -157 -1800 -270 -36 -7 -92 -18 -125 -25 -61 -12 -189 -44 -325 -81 -290 -79 -696 -236 -732 -282 -24 -31 -23 -82 3 -108 30 -30 102 -22 254 29 106 35 200 60 355 92 140 30 1483 30 1685 1 150 -22 563 -31 1343 -31 706 0 812 -2 812 -15 0 -9 -17 -18 -42 -25 -24 -5 -56 -14 -73 -19 -16 -5 -64 -19 -105 -30 -41 -12 -88 -26 -105 -31 -36 -11 -213 -58 -270 -72 -22 -5 -56 -13 -75 -18 -19 -6 -82 -22 -140 -36 -123 -30 -185 -47 -260 -69 -30 -9 -77 -22 -105 -30 -27 -7 -72 -20 -100 -28 -64 -20 -255 -74 -320 -92 -85 -23 -243 -71 -390 -120 -100 -33 -386 -137 -440 -160 -16 -7 -100 -43 -185 -78 -364 -153 -617 -279 -940 -471 -424 -251 -619 -404 -838 -656 -218 -252 -333 -369 -472 -484 -74 -61 -174 -149 -223 -196 -85 -83 -87 -86 -87 -132 0 -40 4 -50 25 -64 46 -30 100 -15 221 63 93 59 407 247 454 272 19 10 126 68 200 108 30 17 120 70 200 118 139 84 379 211 505 267 33 14 86 38 118 52 31 14 85 37 120 51 34 14 71 30 82 35 90 39 400 116 705 174 74 15 158 31 185 36 88 17 247 40 345 50 208 22 494 58 665 85 172 26 306 45 432 60 67 8 137 16 155 19 18 3 94 11 168 16 309 24 567 51 800 84 289 41 425 57 564 66 83 5 221 14 306 19 85 6 188 13 228 16 62 6 72 4 72 -9 0 -9 -1 -16 -2 -16 -17 0 -243 -46 -368 -75 -41 -9 -102 -23 -135 -30 -55 -12 -111 -25 -255 -60 -30 -7 -86 -21 -125 -30 -38 -9 -95 -22 -125 -30 -70 -17 -188 -44 -265 -61 -55 -12 -96 -22 -225 -54 -92 -23 -338 -92 -390 -110 -14 -5 -59 -18 -100 -30 -41 -12 -106 -32 -145 -45 -38 -13 -124 -40 -190 -60 -66 -21 -151 -48 -190 -60 -38 -13 -104 -33 -145 -45 -41 -12 -106 -32 -145 -45 -38 -13 -126 -41 -195 -63 -69 -23 -183 -62 -255 -87 -71 -26 -143 -51 -160 -57 -16 -5 -39 -13 -50 -18 -64 -26 -515 -190 -538 -196 -15 -3 -30 -10 -33 -15 -3 -5 -13 -9 -22 -9 -9 -1 -35 -9 -57 -20 -22 -11 -46 -19 -53 -20 -7 0 -20 -4 -30 -10 -9 -5 -73 -33 -142 -61 -114 -48 -523 -249 -680 -335 -36 -19 -103 -56 -150 -81 -47 -25 -110 -60 -140 -78 -30 -17 -102 -58 -160 -90 -379 -211 -621 -371 -910 -604 -58 -47 -150 -121 -205 -165 -164 -132 -179 -149 -171 -198 14 -88 34 -87 332 11 371 122 538 167 884 236 36 8 99 20 140 29 41 8 109 22 150 30 99 21 340 78 440 106 99 27 290 55 720 105 218 25 292 35 425 55 222 35 400 64 810 133 174 30 291 53 700 142 33 7 96 21 140 30 44 10 107 23 140 30 33 7 96 21 140 30 196 42 230 50 530 121 162 38 315 68 465 89 97 14 210 32 360 59 124 23 263 46 365 61 50 7 137 21 195 29 178 27 491 85 570 106 78 20 170 24 170 6 0 -9 -8 -16 -19 -16 -10 0 -41 -7 -67 -14 -27 -8 -76 -22 -109 -31 -106 -30 -158 -44 -250 -71 -49 -14 -112 -32 -140 -39 -27 -7 -99 -28 -160 -45 -60 -17 -132 -38 -160 -45 -27 -8 -75 -21 -105 -30 -30 -9 -77 -23 -105 -30 -27 -8 -99 -28 -160 -45 -60 -18 -135 -38 -165 -47 -133 -36 -158 -43 -210 -58 -30 -9 -73 -21 -95 -26 -22 -5 -51 -14 -65 -18 -14 -5 -59 -19 -100 -31 -41 -12 -86 -25 -100 -30 -14 -5 -59 -18 -100 -30 -41 -12 -109 -32 -150 -45 -41 -12 -109 -33 -150 -45 -41 -12 -93 -28 -115 -35 -22 -8 -107 -35 -190 -60 -82 -25 -161 -50 -175 -55 -14 -4 -99 -32 -190 -60 -91 -29 -196 -62 -235 -75 -38 -13 -144 -46 -235 -75 -91 -28 -172 -55 -180 -59 -9 -5 -31 -12 -50 -16 -19 -4 -41 -11 -50 -16 -8 -4 -51 -20 -95 -35 -44 -15 -156 -54 -250 -86 -93 -33 -188 -66 -210 -73 -119 -40 -313 -110 -360 -131 -16 -7 -70 -29 -120 -49 -49 -20 -99 -40 -110 -45 -11 -5 -76 -32 -145 -60 -69 -28 -134 -55 -145 -60 -11 -5 -76 -32 -145 -60 -69 -28 -134 -55 -145 -60 -11 -5 -42 -18 -70 -30 -27 -12 -59 -25 -70 -30 -11 -5 -171 -73 -355 -151 -308 -131 -381 -163 -510 -221 -25 -11 -65 -29 -90 -40 -25 -11 -58 -26 -75 -33 -16 -7 -56 -25 -87 -39 -138 -62 -185 -84 -393 -187 -301 -149 -469 -240 -786 -426 -127 -74 -149 -96 -149 -148 0 -69 74 -82 210 -36 97 33 144 45 385 90 99 19 186 41 260 66 39 12 104 33 145 45 41 12 98 29 125 37 28 8 61 19 75 23 14 5 111 32 215 60 105 28 215 57 245 66 63 17 78 21 260 69 74 20 155 42 180 49 25 8 72 21 105 31 33 9 71 20 85 25 14 4 79 25 145 45 66 21 215 69 330 107 273 90 306 100 455 143 69 21 148 44 175 52 28 8 73 21 100 28 28 8 73 20 100 29 28 8 100 29 160 46 61 17 130 38 155 45 25 7 63 19 85 25 22 7 78 25 125 40 83 27 124 38 460 120 91 22 217 54 280 71 111 30 150 40 290 74 109 26 341 75 425 90 86 16 165 34 258 59 31 9 81 22 110 30 28 8 77 22 107 31 30 9 78 23 105 30 28 8 73 20 100 29 47 14 105 30 373 107 59 17 132 37 162 45 30 8 78 21 105 29 57 16 181 49 410 109 32 9 225 56 285 71 95 23 367 95 563 150 28 8 77 21 107 29 62 17 224 62 350 99 47 13 94 27 105 30 11 3 44 13 73 21 79 24 152 46 202 61 216 64 447 128 555 154 72 17 149 35 173 41 59 14 92 13 92 -4 0 -7 -8 -16 -18 -19 -16 -5 -252 -89 -282 -100 -8 -3 -69 -24 -135 -46 -66 -22 -199 -68 -295 -102 -96 -33 -193 -67 -215 -74 -22 -8 -139 -48 -260 -90 -121 -42 -420 -143 -665 -225 -245 -82 -542 -183 -660 -223 -118 -41 -251 -86 -295 -101 -44 -15 -89 -31 -100 -36 -11 -4 -49 -18 -85 -30 -36 -12 -74 -26 -85 -30 -11 -4 -85 -31 -165 -60 -80 -29 -159 -59 -177 -66 -17 -8 -38 -14 -46 -14 -9 0 -18 -4 -22 -9 -3 -5 -19 -12 -36 -16 -17 -4 -42 -13 -57 -21 -15 -8 -33 -14 -40 -14 -7 0 -20 -5 -30 -10 -9 -6 -294 -114 -632 -240 -338 -127 -624 -234 -635 -240 -11 -5 -81 -32 -155 -60 -74 -28 -144 -55 -155 -60 -11 -5 -60 -25 -110 -45 -49 -20 -99 -40 -110 -45 -11 -5 -126 -54 -255 -108 -130 -55 -256 -109 -280 -120 -144 -65 -182 -82 -185 -82 -2 0 -47 -21 -102 -46 -54 -25 -111 -52 -128 -59 -16 -7 -55 -25 -85 -38 -71 -31 -126 -57 -223 -101 -44 -20 -80 -36 -82 -36 -2 0 -39 -16 -82 -36 -122 -57 -192 -89 -268 -124 -373 -170 -960 -483 -1440 -769 -259 -153 -360 -216 -660 -413 -200 -131 -376 -234 -501 -295 l-114 -54 0 -63 c0 -61 1 -64 30 -76 79 -33 432 76 685 212 92 49 382 193 445 221 19 9 62 28 95 42 33 15 80 36 105 47 60 26 90 40 183 82 44 20 80 36 82 36 3 0 48 20 185 82 25 11 70 32 100 45 30 13 69 31 85 38 30 13 180 79 265 116 65 29 78 35 153 68 38 17 70 31 72 31 2 0 38 16 82 36 90 41 101 46 168 74 28 12 59 25 70 30 67 32 320 121 440 155 33 9 71 20 85 25 14 5 59 18 100 30 41 12 86 25 100 30 14 5 59 18 100 30 41 11 89 24 105 29 26 8 108 26 275 61 25 5 63 12 85 16 100 16 462 135 590 195 73 33 537 193 680 234 33 9 81 23 107 31 147 44 125 1 -44 -86 -238 -121 -359 -185 -543 -285 -22 -12 -71 -39 -110 -60 -38 -20 -74 -41 -80 -45 -5 -4 -35 -21 -65 -37 -103 -55 -385 -220 -640 -375 -387 -235 -498 -305 -701 -439 -103 -68 -238 -155 -300 -194 -135 -84 -519 -339 -679 -452 -246 -174 -501 -359 -578 -420 -200 -161 -267 -215 -327 -267 -38 -34 -72 -63 -75 -66 -3 -3 -27 -25 -55 -49 -143 -126 -288 -275 -640 -656 -86 -93 -96 -135 -44 -179 36 -30 57 -32 125 -10 68 22 215 74 239 85 11 5 63 25 115 44 52 19 104 40 115 45 11 5 61 25 110 45 82 33 121 49 180 75 11 5 61 25 110 45 50 20 99 40 110 45 11 5 79 32 150 60 72 28 139 55 150 60 11 5 45 19 75 30 30 11 64 25 75 30 11 5 112 45 225 90 113 44 214 85 225 90 11 5 155 65 320 135 165 69 309 130 320 135 92 41 173 79 311 147 221 107 233 112 574 226 200 67 409 141 465 166 11 5 40 17 65 27 25 9 68 27 95 39 28 13 111 48 185 79 74 32 149 63 165 70 17 8 89 35 160 61 72 27 134 52 140 57 5 4 16 8 25 8 8 1 33 9 55 20 22 11 46 19 53 20 7 0 20 5 30 10 21 12 334 130 345 130 5 0 23 6 40 14 18 7 55 21 82 31 28 10 64 23 80 30 17 8 71 29 120 48 79 31 122 50 240 102 118 53 148 66 208 94 169 78 206 95 267 123 36 16 97 45 135 63 165 78 263 124 310 145 28 12 93 43 145 67 52 25 127 60 165 78 39 18 104 48 145 68 41 19 98 45 125 57 28 11 59 25 70 30 120 53 204 91 290 130 144 64 255 110 269 110 41 0 8 -33 -81 -81 -204 -108 -620 -356 -833 -495 -133 -87 -312 -197 -709 -439 -81 -49 -165 -102 -187 -116 -43 -29 -221 -145 -357 -232 -48 -32 -89 -57 -91 -57 -2 0 -53 -30 -113 -66 -59 -37 -148 -91 -198 -121 -49 -31 -119 -74 -155 -97 -36 -23 -99 -64 -140 -90 -41 -26 -131 -85 -201 -129 -69 -45 -161 -104 -204 -132 -103 -65 -648 -428 -745 -496 -41 -28 -111 -77 -155 -107 -163 -113 -258 -181 -585 -417 -565 -408 -1170 -897 -1565 -1264 -185 -173 -281 -265 -585 -561 -184 -180 -364 -353 -400 -385 -169 -154 -200 -189 -200 -229 0 -78 69 -106 167 -67 152 60 432 201 518 261 22 15 180 120 350 233 326 216 415 277 530 362 72 53 306 208 570 377 39 25 108 69 155 100 47 30 112 71 145 92 33 20 98 61 145 91 47 30 200 124 340 208 232 140 327 195 650 380 218 124 298 172 405 242 125 82 263 168 315 197 38 22 173 101 445 261 142 84 393 243 560 356 78 53 163 101 179 101 40 0 3 -38 -176 -181 -106 -84 -247 -196 -313 -248 -66 -53 -122 -98 -125 -101 -3 -3 -27 -23 -55 -45 -27 -21 -52 -42 -55 -45 -3 -3 -43 -37 -90 -75 -47 -38 -87 -72 -90 -75 -3 -3 -43 -37 -90 -75 -47 -39 -96 -80 -110 -91 -14 -12 -151 -129 -305 -261 -154 -131 -343 -290 -420 -353 -185 -151 -519 -439 -555 -479 -3 -4 -41 -37 -85 -76 -43 -38 -87 -77 -95 -85 -9 -8 -70 -64 -136 -125 -155 -143 -265 -249 -433 -416 -227 -228 -532 -539 -616 -630 -153 -164 -181 -195 -280 -309 -55 -63 -102 -117 -105 -120 -37 -34 -213 -281 -285 -399 -196 -325 -225 -471 -93 -471 40 0 41 1 193 136 81 72 175 151 255 214 24 19 107 87 185 150 78 63 198 160 265 215 68 55 172 141 230 190 212 179 179 152 505 409 129 101 1288 966 1627 1213 62 45 233 171 380 280 146 109 276 205 288 213 12 8 83 60 158 114 225 164 410 297 535 387 247 177 406 295 507 379 58 47 161 130 230 183 69 52 199 153 290 223 234 181 408 312 485 364 93 64 387 282 416 309 101 96 516 433 734 597 88 67 189 144 224 172 35 29 70 52 78 52 52 0 -51 -117 -331 -378 -182 -169 -2692 -2672 -3031 -3022 -355 -367 -736 -766 -820 -860 -103 -116 -119 -134 -190 -220 -38 -47 -103 -123 -145 -170 -142 -161 -197 -225 -255 -295 -33 -38 -61 -72 -65 -75 -3 -3 -37 -43 -75 -90 -38 -47 -72 -87 -75 -90 -3 -3 -39 -45 -80 -95 -60 -72 -257 -294 -280 -315 -10 -9 -134 -156 -195 -230 -54 -67 -275 -328 -329 -390 -141 -162 -408 -523 -577 -780 -174 -265 -141 -209 -316 -523 -49 -89 -56 -138 -22 -181 22 -29 59 -34 96 -13 12 7 118 107 235 223 117 115 301 291 408 389 413 380 711 672 1050 1030 124 130 172 179 245 244 33 30 227 217 430 416 445 434 556 540 790 755 774 713 2006 1949 2227 2235 38 50 140 164 227 255 86 91 213 225 281 298 118 126 155 155 148 113 -4 -22 -166 -231 -588 -756 -98 -122 -378 -486 -445 -579 -16 -23 -49 -66 -72 -96 -53 -68 -53 -68 -325 -437 -123 -166 -263 -359 -313 -428 -49 -69 -97 -134 -105 -145 -8 -11 -49 -67 -90 -125 -41 -58 -121 -169 -178 -248 -57 -78 -110 -151 -118 -162 -8 -11 -76 -104 -152 -207 -75 -103 -177 -244 -227 -313 -49 -69 -96 -133 -103 -143 -51 -70 -151 -211 -227 -322 -49 -72 -115 -165 -146 -208 -102 -141 -205 -296 -274 -412 -78 -130 -199 -312 -275 -410 -15 -19 -53 -73 -85 -120 -32 -47 -78 -112 -100 -145 -55 -79 -129 -190 -197 -295 -96 -150 -398 -661 -398 -675 0 -3 -10 -22 -23 -43 -93 -148 -327 -618 -443 -892 -9 -19 -19 -44 -24 -55 -49 -107 -120 -303 -120 -331 0 -26 8 -44 30 -66 60 -60 101 -27 266 217 185 274 420 595 617 845 119 151 471 622 527 705 29 44 84 121 121 170 64 85 86 110 178 210 32 35 209 249 297 361 18 21 78 98 135 169 57 72 108 135 114 141 5 7 82 103 170 215 166 210 765 959 847 1058 109 132 223 273 376 463 90 112 171 212 181 223 9 11 61 79 116 150 54 72 102 132 105 135 9 7 448 593 497 662 51 73 280 393 373 523 41 57 104 145 139 194 61 86 91 111 91 75 0 -14 -32 -77 -130 -259 -18 -33 -56 -105 -85 -160 -94 -180 -157 -299 -190 -360 -18 -33 -55 -103 -83 -155 -27 -52 -65 -124 -84 -160 -19 -36 -59 -110 -88 -165 -29 -55 -67 -127 -85 -160 -119 -223 -229 -433 -315 -600 -42 -82 -113 -220 -157 -305 -124 -238 -673 -1332 -725 -1445 -26 -55 -67 -144 -92 -198 -25 -55 -46 -100 -46 -102 0 -2 -18 -43 -41 -92 -22 -48 -47 -101 -54 -118 -7 -16 -29 -65 -49 -108 -20 -44 -36 -80 -36 -82 0 -2 -14 -34 -31 -72 -40 -90 -44 -100 -69 -158 -12 -27 -25 -59 -30 -70 -5 -11 -18 -42 -30 -70 -38 -88 -51 -120 -60 -140 -5 -11 -39 -92 -75 -180 -36 -88 -70 -169 -75 -180 -5 -11 -18 -42 -30 -70 -37 -86 -51 -119 -60 -140 -5 -11 -21 -48 -35 -82 -14 -35 -37 -89 -51 -120 -14 -32 -31 -71 -39 -88 -14 -34 -141 -373 -179 -480 -13 -38 -45 -128 -71 -200 -26 -71 -58 -164 -71 -205 -14 -41 -29 -84 -34 -95 -5 -11 -21 -65 -36 -120 -73 -279 -75 -291 -39 -333 58 -69 121 -37 180 92 58 125 78 113 54 -34 -6 -36 -17 -119 -25 -185 -8 -66 -17 -136 -20 -156 -11 -70 38 -126 100 -115 48 9 69 39 120 171 26 66 51 129 56 140 5 11 25 61 45 110 44 110 58 143 118 275 18 41 47 104 63 140 33 74 225 457 271 540 46 85 122 230 213 405 46 88 100 193 122 233 21 40 60 114 87 165 108 208 149 280 251 452 108 181 215 366 255 440 12 22 46 83 75 135 30 52 66 118 81 145 14 28 41 74 58 103 17 29 31 55 31 58 0 2 11 22 25 44 14 22 65 108 113 192 49 84 133 230 187 323 112 194 160 278 217 385 23 41 64 118 92 170 70 128 143 278 248 510 12 25 40 87 64 138 24 52 44 96 44 98 0 20 176 354 186 354 15 0 19 -40 6 -55 -5 -6 -17 -32 -27 -60 -10 -27 -25 -68 -35 -90 -9 -22 -25 -60 -34 -85 -10 -25 -22 -54 -27 -65 -9 -23 -75 -194 -91 -240 -6 -16 -17 -43 -23 -60 -7 -16 -34 -88 -60 -160 -41 -112 -126 -327 -155 -390 -5 -11 -18 -42 -30 -70 -12 -27 -25 -59 -30 -70 -29 -66 -53 -123 -94 -230 -26 -66 -53 -133 -60 -150 -8 -16 -22 -52 -31 -80 -10 -27 -21 -54 -25 -60 -4 -5 -24 -57 -45 -115 -21 -58 -42 -109 -47 -115 -4 -5 -8 -15 -8 -23 0 -8 -7 -28 -15 -45 -8 -18 -51 -129 -95 -247 -44 -118 -84 -223 -90 -232 -5 -10 -10 -23 -10 -30 0 -7 -6 -24 -13 -38 -7 -14 -23 -56 -36 -95 -13 -38 -27 -74 -31 -80 -4 -5 -11 -21 -15 -35 -9 -33 -213 -586 -231 -627 -8 -17 -14 -36 -14 -42 0 -6 -4 -19 -9 -29 -12 -22 -160 -427 -196 -537 -8 -22 -34 -98 -60 -170 -84 -237 -265 -784 -315 -955 -12 -41 -25 -86 -30 -100 -5 -14 -18 -59 -30 -100 -12 -41 -26 -86 -31 -100 -4 -14 -13 -43 -18 -65 -15 -65 -79 -295 -102 -368 -43 -136 15 -213 123 -164 59 27 215 255 367 537 49 92 322 639 354 710 8 19 34 76 57 125 23 50 48 104 55 120 7 17 29 65 49 108 20 44 36 80 36 82 0 2 14 34 31 72 17 37 39 86 49 108 10 22 48 110 85 195 36 85 73 169 80 185 7 17 26 57 40 90 15 33 42 94 60 135 30 70 65 149 85 195 5 11 18 43 30 70 12 28 25 59 30 70 5 11 18 43 30 70 33 78 51 118 60 140 5 11 68 159 140 329 73 170 143 335 157 365 13 31 28 65 33 76 5 11 25 55 44 98 20 44 36 80 36 82 0 2 13 33 30 68 16 36 30 70 30 76 0 6 7 11 16 11 18 0 15 -70 -5 -107 -5 -10 -66 -193 -137 -408 -70 -214 -131 -397 -135 -405 -4 -8 -24 -64 -44 -125 -20 -60 -40 -119 -45 -130 -4 -11 -18 -49 -30 -85 -12 -36 -26 -74 -30 -85 -21 -49 -137 -408 -180 -555 -12 -41 -25 -86 -30 -100 -5 -14 -18 -59 -30 -100 -11 -41 -25 -88 -30 -105 -8 -27 -39 -140 -75 -280 -33 -124 -137 -536 -151 -595 -8 -36 -21 -90 -29 -120 -7 -30 -21 -86 -30 -125 -9 -38 -23 -95 -30 -125 -8 -30 -21 -86 -31 -125 -9 -38 -22 -95 -30 -125 -7 -30 -20 -84 -28 -120 -14 -60 -197 -786 -251 -1000 -32 -121 -31 -135 4 -171 41 -40 83 -39 125 3 87 89 314 522 468 893 27 66 53 129 58 140 5 11 25 63 45 115 20 52 40 104 45 115 18 38 64 173 207 605 80 239 149 444 153 455 4 11 18 52 30 90 11 39 25 79 30 90 4 11 18 52 30 90 12 39 24 77 27 85 44 114 434 1279 513 1530 28 91 55 176 60 190 5 14 18 59 30 100 12 41 25 86 30 100 10 28 39 127 70 240 12 41 28 98 37 125 8 28 19 71 25 98 6 28 16 47 24 47 17 0 18 -38 4 -130 -6 -36 -17 -110 -25 -165 -13 -93 -24 -162 -60 -375 -38 -228 -61 -356 -89 -495 -8 -38 -22 -108 -31 -155 -9 -47 -23 -116 -31 -155 -18 -92 -43 -222 -59 -315 -7 -41 -20 -115 -29 -165 -21 -114 -42 -235 -61 -350 -8 -49 -21 -133 -30 -185 -26 -156 -46 -280 -60 -370 -7 -47 -21 -130 -30 -185 -34 -209 -83 -605 -120 -980 -39 -387 -46 -1213 -11 -1390 26 -133 50 -209 102 -323 19 -41 34 -77 34 -80 1 -12 35 -49 57 -61 60 -32 135 9 154 84 44 171 68 331 114 745 22 199 67 517 120 845 9 55 23 141 31 190 7 50 20 128 28 175 26 152 47 283 62 375 8 50 20 128 28 175 26 155 47 284 61 370 40 254 48 303 60 385 8 50 21 140 30 200 8 61 22 155 30 210 8 55 22 152 31 215 8 63 22 162 30 220 16 115 35 259 58 445 14 113 22 165 61 395 44 263 94 687 115 990 6 80 15 167 20 193 6 26 10 64 10 82 0 24 5 35 15 35 20 0 18 107 20 -1325 1 -1211 4 -1354 35 -1710 25 -277 64 -651 85 -805 8 -58 21 -159 30 -225 21 -166 38 -261 90 -530 7 -38 21 -108 30 -155 59 -310 83 -421 130 -595 28 -105 39 -143 87 -290 103 -318 199 -493 389 -712 27 -31 33 -33 92 -33 99 0 102 13 56 270 -6 30 -10 223 -9 430 1 352 -7 557 -31 830 -22 249 -23 320 -7 320 10 0 18 -12 21 -32 8 -53 60 -339 81 -443 22 -115 36 -178 46 -215 5 -19 21 -82 35 -140 53 -210 160 -503 221 -601 64 -103 145 -90 210 36 20 38 53 93 73 120 76 102 140 217 216 390 37 85 111 335 135 460 47 240 64 361 91 655 26 281 39 1326 20 1625 -50 784 -69 1066 -75 1100 -3 17 -10 86 -16 155 -5 69 -16 188 -25 265 -36 345 -45 429 -60 560 -35 308 -45 396 -60 530 -9 77 -20 174 -25 215 -13 112 -12 170 3 170 9 0 17 -29 25 -88 6 -48 19 -127 27 -177 8 -49 22 -133 30 -185 14 -89 21 -136 61 -380 18 -111 30 -184 90 -567 8 -51 20 -135 28 -185 75 -482 110 -745 145 -1108 6 -63 16 -151 22 -195 5 -44 14 -125 19 -180 11 -126 26 -277 42 -425 20 -176 18 -1253 -2 -1340 -34 -155 -17 -210 66 -210 48 0 81 33 122 120 63 136 97 214 128 290 19 47 39 94 44 105 16 35 52 153 90 295 64 240 114 597 149 1065 7 83 19 213 27 290 12 102 18 278 21 643 4 392 8 502 18 502 7 0 15 -18 18 -42 3 -24 13 -92 22 -153 21 -140 42 -320 60 -510 21 -221 43 -441 60 -605 36 -349 39 -409 27 -528 -14 -142 -4 -177 52 -188 78 -14 104 15 186 211 23 55 47 114 54 130 119 272 165 525 166 912 0 165 7 214 52 348 38 113 80 360 97 570 6 72 16 182 22 245 44 463 -20 1315 -147 1970 -9 47 -22 117 -29 155 -15 82 -80 409 -105 525 -5 25 -15 74 -21 110 -10 60 -16 94 -54 295 -49 259 -141 698 -165 785 -5 19 -25 98 -44 175 -31 127 -47 212 -92 475 -19 114 -37 207 -75 380 -17 80 -37 172 -44 205 -7 33 -21 94 -30 135 -54 237 -113 553 -179 955 -8 50 -19 115 -25 145 -6 30 -17 156 -26 280 -8 124 -20 273 -26 331 -5 58 -14 209 -19 335 -8 201 -18 308 -46 497 -8 55 13 67 33 20 29 -71 115 -345 152 -488 12 -44 26 -96 31 -115 5 -19 22 -84 36 -145 14 -60 36 -144 49 -185 12 -41 30 -102 40 -135 9 -33 20 -71 25 -85 5 -14 15 -50 24 -80 8 -30 24 -89 36 -130 11 -41 25 -91 30 -110 5 -19 18 -66 29 -105 10 -38 26 -99 35 -135 9 -36 21 -81 26 -100 15 -54 92 -378 125 -530 9 -41 23 -102 30 -135 15 -68 40 -179 61 -275 8 -36 18 -81 23 -100 6 -19 28 -109 50 -200 22 -91 61 -246 86 -345 47 -181 58 -227 90 -365 40 -175 86 -404 121 -600 33 -180 43 -238 58 -317 9 -46 23 -118 31 -160 34 -182 61 -321 93 -478 12 -55 26 -129 32 -165 29 -164 58 -319 84 -440 39 -182 86 -375 135 -560 47 -172 60 -244 106 -560 29 -196 34 -245 35 -306 0 -129 62 -193 140 -147 49 28 65 80 105 323 38 235 54 418 54 623 1 126 4 157 15 157 8 0 16 -15 19 -38 4 -20 13 -66 22 -102 8 -36 22 -99 31 -140 32 -152 44 -206 59 -270 29 -124 35 -161 45 -285 13 -161 30 -195 96 -195 69 0 77 12 119 175 121 465 125 1365 11 2235 -38 289 -71 534 -92 683 -27 194 -28 227 -12 227 16 0 36 -70 104 -355 9 -38 23 -97 31 -130 7 -33 20 -89 28 -125 8 -36 21 -92 29 -125 7 -33 28 -123 45 -200 17 -77 33 -149 36 -160 2 -11 14 -60 25 -110 11 -49 27 -119 36 -155 8 -36 19 -81 24 -100 11 -38 54 -211 76 -305 31 -130 46 -225 53 -334 8 -110 9 -116 37 -138 66 -53 131 -13 164 100 30 103 38 131 60 227 11 47 25 101 30 120 135 498 176 898 168 1643 -5 444 0 483 40 304 13 -56 27 -120 33 -142 17 -74 39 -299 39 -411 0 -97 3 -115 21 -138 25 -32 96 -37 122 -8 21 23 64 120 78 177 12 49 25 55 64 29 58 -38 101 -3 140 111 15 44 39 107 52 140 64 152 102 318 124 540 15 155 5 710 -15 835 -18 107 -20 223 -5 290 40 184 79 525 79 698 0 95 3 122 13 122 8 0 18 -21 25 -52 6 -29 18 -87 27 -128 47 -209 97 -477 120 -645 23 -161 40 -202 94 -225 38 -15 81 -1 111 37 47 60 127 399 159 678 41 345 45 447 27 672 -49 628 -100 1000 -210 1548 -8 39 -22 108 -31 155 -9 47 -23 117 -31 155 -28 141 -28 135 -12 135 18 0 100 -164 177 -355 5 -11 14 -33 21 -50 69 -169 188 -519 214 -633 10 -40 22 -121 27 -180 27 -323 33 -342 109 -342 50 0 76 33 101 130 25 101 71 228 130 365 19 44 62 192 83 285 46 203 51 266 51 598 -1 216 3 322 10 322 5 0 38 -76 72 -168 65 -175 77 -214 98 -324 18 -95 31 -123 70 -143 56 -31 112 6 145 95 52 146 76 535 51 850 -33 432 -85 873 -136 1165 -40 230 -89 479 -129 650 -8 33 -22 94 -31 135 -20 88 -40 172 -61 253 -7 31 -20 83 -28 115 -8 31 -28 109 -44 172 -29 110 -55 209 -123 468 -16 64 -55 216 -85 337 -30 121 -59 236 -64 256 -26 96 1 119 45 37 15 -29 63 -112 107 -185 87 -147 132 -238 173 -358 10 -27 23 -63 30 -80 7 -16 29 -70 49 -120 21 -49 41 -99 46 -110 29 -66 51 -120 80 -200 18 -49 37 -94 42 -99 4 -6 8 -16 8 -24 0 -8 6 -28 14 -45 20 -44 51 -125 150 -392 47 -126 90 -238 96 -247 5 -10 10 -23 10 -29 0 -6 7 -25 15 -42 15 -33 61 -170 89 -267 29 -99 47 -193 56 -293 13 -131 33 -166 95 -166 74 0 98 66 116 324 18 252 5 520 -37 780 -9 55 -18 115 -21 133 -4 23 -1 32 9 32 26 0 96 -245 104 -364 9 -135 40 -196 100 -196 86 0 111 52 153 320 12 74 26 160 31 191 14 77 13 533 -2 640 -13 102 -11 108 37 85 116 -56 159 46 171 404 7 197 -8 570 -27 685 -21 132 -61 364 -74 425 -7 36 -18 92 -25 125 -8 40 -9 60 -1 63 47 16 63 46 98 187 21 83 23 379 5 511 -7 43 -16 120 -22 169 -18 161 -66 450 -100 600 -5 22 -19 85 -31 140 -35 161 -121 491 -149 575 -5 14 -18 59 -30 100 -75 257 -304 889 -390 1075 -18 41 -61 137 -85 194 -13 32 -44 101 -68 152 -24 52 -56 123 -73 159 -232 516 -613 1135 -961 1563 -81 99 -80 112 9 173 153 103 402 306 638 518 25 23 59 52 75 66 53 45 526 454 650 562 451 392 1060 838 1206 883 13 4 29 11 34 15 6 3 30 14 55 24 25 9 60 30 78 46 l32 30 0 110 c0 60 -4 110 -8 110 -4 0 -14 16 -21 36 -17 47 -124 154 -178 178 -24 10 -43 23 -43 28 0 4 -48 8 -108 8 -100 0 -108 -1 -122 -22z"/>
+  <symbol id="leaf" viewBox="0 0 2700 2073"><g transform="translate(2700 0) rotate(90)"><use href="#leafD"/></g></symbol>
+  <symbol id="cdtLogo" viewBox="-120 -836 3354 2465"><path fill="currentColor" d="M351.0 -712.0Q483.0 -712.0 573.0 -641.5Q663.0 -571.0 689.0 -450.0H478.0Q459.0 -490.0 425.5 -511.0Q392.0 -532.0 348.0 -532.0Q280.0 -532.0 239.5 -483.5Q199.0 -435.0 199.0 -354.0Q199.0 -272.0 239.5 -223.5Q280.0 -175.0 348.0 -175.0Q392.0 -175.0 425.5 -196.0Q459.0 -217.0 478.0 -257.0H689.0Q663.0 -136.0 573.0 -65.5Q483.0 5.0 351.0 5.0Q247.0 5.0 167.0 -40.5Q87.0 -86.0 43.5 -167.5Q0.0 -249.0 0.0 -354.0Q0.0 -458.0 43.5 -539.5Q87.0 -621.0 167.0 -666.5Q247.0 -712.0 351.0 -712.0ZM665.5 -355.0Q665.5 -459.0 714.0 -541.5Q762.5 -624.0 845.5 -670.0Q928.5 -716.0 1027.5 -716.0Q1127.5 -716.0 1210.0 -670.0Q1292.5 -624.0 1340.5 -541.5Q1388.5 -459.0 1388.5 -355.0Q1388.5 -251.0 1340.5 -168.5Q1292.5 -86.0 1209.5 -39.5Q1126.5 7.0 1027.5 7.0Q928.5 7.0 845.5 -39.5Q762.5 -86.0 714.0 -168.5Q665.5 -251.0 665.5 -355.0ZM1189.5 -355.0Q1189.5 -439.0 1146.0 -487.5Q1102.5 -536.0 1027.5 -536.0Q951.5 -536.0 908.5 -487.5Q865.5 -439.0 865.5 -355.0Q865.5 -272.0 908.5 -223.5Q951.5 -175.0 1027.5 -175.0Q1102.5 -175.0 1146.0 -224.0Q1189.5 -273.0 1189.5 -355.0ZM1363.0 -219.0H1572.0Q1575.0 -182.0 1594.0 -165.0Q1613.0 -148.0 1643.0 -148.0Q1670.0 -148.0 1687.5 -161.5Q1705.0 -175.0 1705.0 -199.0Q1705.0 -230.0 1676.0 -247.0Q1647.0 -264.0 1582.0 -285.0Q1513.0 -308.0 1470.5 -329.5Q1428.0 -351.0 1396.5 -392.5Q1365.0 -434.0 1365.0 -501.0Q1365.0 -569.0 1399.0 -617.5Q1433.0 -666.0 1493.0 -691.0Q1553.0 -716.0 1629.0 -716.0Q1752.0 -716.0 1825.5 -658.5Q1899.0 -601.0 1904.0 -497.0H1691.0Q1690.0 -529.0 1671.5 -545.0Q1653.0 -561.0 1624.0 -561.0Q1602.0 -561.0 1588.0 -548.0Q1574.0 -535.0 1574.0 -511.0Q1574.0 -491.0 1589.5 -476.5Q1605.0 -462.0 1628.0 -451.5Q1651.0 -441.0 1696.0 -425.0Q1763.0 -402.0 1806.5 -379.5Q1850.0 -357.0 1881.5 -316.5Q1913.0 -276.0 1913.0 -214.0Q1913.0 -151.0 1881.5 -101.0Q1850.0 -51.0 1790.5 -22.0Q1731.0 7.0 1650.0 7.0Q1527.0 7.0 1448.0 -51.5Q1369.0 -110.0 1363.0 -219.0ZM2442.5 -705.0V-549.0H2254.5V0.0H2058.5V-549.0H1872.5V-705.0ZM2869.0 -115.0H2619.0L2581.0 0.0H2375.0L2632.0 -705.0H2858.0L3114.0 0.0H2907.0ZM2820.0 -265.0 2744.0 -493.0 2669.0 -265.0ZM1447.5 399.0Q1447.5 501.0 1402.0 581.0Q1356.5 661.0 1273.0 706.5Q1189.5 752.0 1079.5 752.0H800.5V47.0H1079.5Q1190.5 47.0 1274.0 91.5Q1357.5 136.0 1402.5 216.0Q1447.5 296.0 1447.5 399.0ZM1248.5 399.0Q1248.5 312.0 1199.5 264.5Q1150.5 217.0 1064.5 217.0H996.5V579.0H1064.5Q1150.5 579.0 1199.5 532.0Q1248.5 485.0 1248.5 399.0ZM1639.0 204.0V319.0H1864.0V468.0H1639.0V595.0H1894.0V752.0H1443.0V47.0H1894.0V204.0ZM2094.5 602.0H2313.5V752.0H1898.5V47.0H2094.5ZM936.75 799.0V955.0H748.75V1504.0H552.75V955.0H366.75V799.0ZM1113.25 956.0V1071.0H1338.25V1220.0H1113.25V1347.0H1368.25V1504.0H917.25V799.0H1368.25V956.0ZM1699.75 792.0Q1831.75 792.0 1921.75 862.5Q2011.75 933.0 2037.75 1054.0H1826.75Q1807.75 1014.0 1774.25 993.0Q1740.75 972.0 1696.75 972.0Q1628.75 972.0 1588.25 1020.5Q1547.75 1069.0 1547.75 1150.0Q1547.75 1232.0 1588.25 1280.5Q1628.75 1329.0 1696.75 1329.0Q1740.75 1329.0 1774.25 1308.0Q1807.75 1287.0 1826.75 1247.0H2037.75Q2011.75 1368.0 1921.75 1438.5Q1831.75 1509.0 1699.75 1509.0Q1595.75 1509.0 1515.75 1463.5Q1435.75 1418.0 1392.25 1336.5Q1348.75 1255.0 1348.75 1150.0Q1348.75 1046.0 1392.25 964.5Q1435.75 883.0 1515.75 837.5Q1595.75 792.0 1699.75 792.0ZM2669.25 799.0V1504.0H2473.25V1221.0H2234.25V1504.0H2038.25V799.0H2234.25V1064.0H2473.25V799.0Z"/></symbol>
+</defs></svg>
+
+<header class="top" id="top">
+  <a class="logo" href="#" aria-label="Costa del Tech home"><svg viewBox="-120 -836 3354 2465" aria-hidden="true"><use href="#cdtLogo"/></svg></a>
+  <nav class="nav" aria-label="Main">
+    <a href="#grow">About</a>
+    <div class="dd" id="dd">
+      <button class="dd-b" aria-expanded="false" aria-haspopup="true">Community <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+      <div class="dd-m" role="menu">
+        <a href="#member" role="menuitem"><b>Member</b><small>Join the community — free, no gatekeeping</small></a>
+        <a href="#partner" role="menuitem"><b>Partner</b><small>Companies and institutions building the region</small></a>
+        <a href="#collaborator" role="menuitem"><b>Collaborator</b><small>Co-host events, speak, write with us</small></a>
+      </div>
+    </div>
+    <a href="#member">Talent</a>
+    <a href="https://luma.com/user/costadeltech" target="_blank" rel="noopener">Luma<span class="ext">↗</span></a>
+    <a href="https://www.linkedin.com/company/costadeltech" target="_blank" rel="noopener">LinkedIn<span class="ext">↗</span></a>
+    <a class="cta" href="mailto:press@thefjx.com?subject=Apply%20to%20join%20Costa%20del%20Tech">Apply to join</a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><i></i><i></i><i></i></button>
+  </nav>
+</header>
+<nav class="mnav" id="mnav" aria-label="Mobile menu" hidden>
+  <div><a href="#grow">About</a></div>
+  <details><summary>Community</summary>
+    <a href="#member">Member<small>Join the community — free, no gatekeeping</small></a>
+    <a href="#partner">Partner<small>Companies and institutions building the region</small></a>
+    <a href="#collaborator">Collaborator<small>Co-host events, speak, write with us</small></a>
+  </details>
+  <a href="#member">Talent</a>
+  <a href="https://luma.com/user/costadeltech" target="_blank" rel="noopener">Luma <span class="ext">↗</span></a>
+  <a href="https://www.linkedin.com/company/costadeltech" target="_blank" rel="noopener">LinkedIn <span class="ext">↗</span></a>
+  <div class="m-cta"><a href="mailto:press@thefjx.com?subject=Apply%20to%20join%20Costa%20del%20Tech">Apply to join →</a></div>
+</nav>
+
+<main>
+  <section class="intro">
+    <div class="leafbox" id="leafbox"><svg id="heroLeaf" viewBox="0 0 2700 2073" aria-hidden="true"><use class="solid" href="#leaf" width="2700" height="2073"/></svg></div>
+    <h1 class="kicker">The community behind Europe's<br>most unexpected tech hub</h1>
+    <div class="wordmark" id="wm"></div>
+    <div class="row">
+      <p><b>FJX Tech Hub</b><br><span class="mute">Málaga, Costa del Sol</span></p>
+      <p><b>1000+ people</b><br><span class="mute">Free to join, no gatekeeping</span></p>
+      <a class="btn" href="mailto:press@thefjx.com?subject=Apply%20to%20join%20Costa%20del%20Tech" id="applyBtn"><span class="mag-in">Apply to join <span class="arr">→</span></span></a>
+    </div>
+  </section>
+
+  <section class="grow" id="grow">
+    <div class="stick" id="stick">
+      <div class="copy" id="copy">
+        <h2>From sun and tourism to software and AI.</h2>
+        <p>International tech companies are opening hubs here, engineers are relocating from across Europe, and a new generation of founders is building from the coast.</p>
+        <p class="film-note">A documentary by Moritz Jansen · FJX Media<br>Episode 2 is in production — <a href="mailto:press@thefjx.com?subject=Costa%20del%20Tech%20Episode%202">suggest a story →</a></p>
+      </div>
+      <div class="win" id="win" aria-label="Costa del Tech documentary teaser">
+        <img class="poster" src="video/trailer-poster.webp" alt="">
+        <video id="vid" muted loop playsinline preload="metadata" poster="video/trailer-poster.webp"><source src="video/trailer-web.mp4?v=2" type="video/mp4"></video>
+        <div class="shade" id="shade"></div>
+      </div>
+      <div class="over" id="over">
+        <div><strong>1000+</strong><span>people in the community</span></div>
+        <div><strong>800+</strong><span>newsletter subscribers</span></div>
+        <div><strong>20+</strong><span>events in 2026</span></div>
+        <div><strong>200+</strong><span>guests at the premiere</span></div>
+      </div>
+      <a class="cap" id="cap" href="https://www.youtube.com/watch?v=PMpSF9Ve5ss" target="_blank" rel="noopener"><span class="n">Teaser</span><span class="t">Watch the documentary ↗</span></a>
+      <button class="snd" id="snd" aria-pressed="false" aria-label="Turn sound on">
+        <svg class="off-i" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6h3l4-3v10l-4-3H2z" fill="currentColor"/><path d="M11 6l4 4M15 6l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <svg class="on-i" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6h3l4-3v10l-4-3H2z" fill="currentColor"/><path d="M11 5.5a3.5 3.5 0 010 5M12.8 3.5a6 6 0 010 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span class="snd-t">Sound</span>
+      </button>
+    </div>
+  </section>
+    <section class="events" id="events">
+    <div class="ev-head">
+      <h2 class="ev-t">Our <span>events</span></h2>
+      <a class="ev-all" href="https://luma.com/user/costadeltech" target="_blank" rel="noopener">All events on Luma ↗</a>
+    </div>
+    <p class="ev-sec">Coming up</p>
+    <div class="ev-list">
+      <a class="ev-row up open" href="https://luma.com/user/costadeltech" target="_blank" rel="noopener"><span class="dt">Dec 2026 · TBA</span><h4>Community networking with GDG Málaga</h4><span class="nt">An end-of-year evening at the FJX Tech Hub</span><span class="ev-go">Get notified <span>→</span></span></a>
+    </div>
+    <p class="ev-sec">2026 so far</p>
+    <div class="ev-list">
+      <a class="ev-row" href="https://luma.com/user/costadeltech" target="_blank" rel="noopener" data-img="assets/gallery-why-malaga.webp"><span class="dt">7 Nov</span><h4>BiznagaFest at FYCMA</h4><span class="nt">The community at Málaga’s tech festival, as a partner</span></a>
+      <a class="ev-row" href="https://luma.com/user/costadeltech" target="_blank" rel="noopener" data-img="assets/gallery-eclipse.webp"><span class="dt">23 Oct</span><h4>Founder Deep Dive #1</h4><span class="nt">Maziar Nodehi, BioCircular Fiber, with Dr. Krisztina Edelmann</span></a>
+      <a class="ev-row" href="https://luma.com/user/costadeltech" target="_blank" rel="noopener" data-img="assets/gallery-why-malaga.webp"><span class="dt">22 &amp; 29 Oct</span><h4>Partner conferences</h4><span class="nt">Free member tickets for GInPS2026 and J On The Beach</span></a>
+      <a class="ev-row" href="https://luma.com/user/costadeltech" target="_blank" rel="noopener" data-img="assets/gallery-hub-opening.webp"><span class="dt">7 Jul</span><h4>FJX Tech Hub Málaga opening</h4><span class="nt">80+ registrations for 40 seats</span></a>
+      <a class="ev-row" href="https://luma.com/user/costadeltech" target="_blank" rel="noopener" data-img="assets/gallery-women-techmakers.webp"><span class="dt">Mar</span><h4>Women Techmakers × FJX</h4><span class="nt">70+ attendees, 20+ publications</span></a>
+      <a class="ev-row" href="https://luma.com/user/costadeltech" target="_blank" rel="noopener" data-img="assets/gallery-premiere.webp"><span class="dt">3 Mar</span><h4>World premiere: Costa del Tech</h4><span class="nt">The Pool, Marbella · 200+ guests</span></a>
+    </div>
+    <div class="cohost">
+      <p class="sk"><i>↘</i> Friends &amp; partners</p><h3 class="sh">Communities we build with</h3>
+      <div class="pg5"><span class="it"><img src="assets/logo-women-techmakers.png" alt="Women Techmakers" style="--h:60px"></span><span class="it"><img src="assets/logo-gdg-malaga.svg" alt="Google Developer Groups Málaga" style="--h:24px"></span><span class="it"><img src="assets/logo-cursor.svg" alt="Cursor" style="--h:24px"></span><span class="it"><img src="assets/logo-malaga-ai.svg" alt="Málaga AI" style="--h:38px"></span><span class="it"><img src="assets/logo-j-on-the-beach.svg" alt="J On The Beach" class="inv" style="--h:38px"></span><span class="it"><img src="assets/logo-wordpress-malaga.svg" alt="WordPress Málaga" style="--h:40px"></span><span class="it"><img src="assets/logo-clash-lab.png" alt="CLASH Lab" style="--h:44px"></span><span class="it"><img src="assets/logo-les-roches.png" alt="" style="--h:44px;margin-right:-6px"><b>Les Roches</b></span><span class="it"><img src="assets/logo-sendaa.webp" alt="Sendaa Founders Hub" style="--h:52px"></span><span class="it"><img src="assets/logo-the-pool.png" alt="The Pool Marbella" class="inv" style="--h:30px"></span><span class="it"><b>BiznagaFest</b></span><span class="it"><b>Women in Tech</b></span><span class="it"><img src="assets/logo-icex.svg" alt="ICEX" class="inv" style="--h:30px"></span><span class="it"><img src="assets/logo-ciudad-de-malaga.png" alt="Ciudad de Málaga" style="--h:36px"></span><span class="it"><img src="assets/logo-malaga-film-office.png" alt="Málaga Film Office" class="inv" style="--h:36px"></span></div>
+    </div>
+    <div class="peek" id="peek" aria-hidden="true"><img alt=""></div>
+  </section>
+  <!-- ═══ TEAM · compact ═══ -->
+  <section class="sec team">
+    <div class="rv"><p class="sk"><i>↘</i> Ambassadors &amp; team</p><h3 class="sh">The people who make it happen</h3></div>
+    <div class="tm-g"><figure class="rv"><div class="disc"><div class="ph"><img src="assets/team-natalia-fel.webp" alt="" loading="lazy"></div></div><figcaption><b>Natalia Fel</b><small>Community Lead · CEO, FJX Tech</small></figcaption></figure><figure class="rv"><div class="disc"><div class="ph"><img src="assets/team-moritz-jansen.webp" alt="" loading="lazy"></div></div><figcaption><b>Moritz Jansen</b><small>Film director · FJX Media</small></figcaption></figure><figure class="rv"><div class="disc"><div class="ph"><img src="assets/team-tatiana-sinitsyna.webp" alt="" loading="lazy"></div></div><figcaption><b>Tatiana Sinitsyna</b><small>Community &amp; Events</small></figcaption></figure><figure class="rv"><div class="disc"><div class="ph"><img src="assets/team-silvia-garcia-guijo.webp" alt="" loading="lazy"></div></div><figcaption><b>Silvia García Guijo</b><small>Community Ambassador</small></figcaption></figure></div>
+  </section>
+
+  <!-- ═══ JOIN + NEWSLETTER + FOOTER ═══ -->
+  <section class="sec join dk" id="join">
+    <div class="rv"><p class="sk"><i>↘</i> Community</p><h2 class="st">Join, speak,<br><span>host or partner.</span></h2></div>
+    <div class="jn-g">
+      <article class="jn-c rv" id="member"><span class="n">Member</span><h3>Join the community</h3><p>A few lines about you and your LinkedIn. We reply by email.</p><a class="bt cob" href="mailto:press@thefjx.com?subject=Apply%20to%20join%20Costa%20del%20Tech">Apply to join <span>→</span></a></article>
+      <article class="jn-c rv" id="collaborator"><span class="n">Collaborator</span><h3>Share your story</h3><p>Pitch a talk, a Deep Dive or an interview — or add your event to the Digest.</p><a class="bt cob" href="mailto:press@thefjx.com?subject=Speak%20or%20share%20a%20story%20at%20Costa%20del%20Tech">Pitch a story <span>→</span></a></article>
+      <article class="jn-c rv" id="partner"><span class="n">Partner</span><h3>Partner with us</h3><p>Co-host an event, share tickets or put your company in Episode 2.</p><a class="bt cob" href="mailto:press@thefjx.com?subject=Partner%20with%20Costa%20del%20Tech">Get in touch <span>→</span></a></article>
+    </div>
+    <div class="nl rv" id="newsletter"><div><b>The monthly newsletter</b><span>News, interviews and the Events Digest — for 800+ people on the coast.</span></div><a class="bt wh" href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7470495908846104576" target="_blank" rel="noopener">Subscribe on LinkedIn <span>↗</span></a></div>
+    <footer class="fb">
+      <div class="logos"><svg viewBox="-120 -836 3354 2465" aria-hidden="true"><use href="#cdtLogo"/></svg><img src="assets/fjx-tech-logo-white.png" alt="FJX Tech"></div>
+      <nav><a href="https://luma.com/user/costadeltech" target="_blank" rel="noopener">Luma</a><a href="https://www.linkedin.com/company/costadeltech" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.youtube.com/@FJX_Group" target="_blank" rel="noopener">YouTube</a><a href="mailto:press@thefjx.com">press@thefjx.com</a><a href="https://www.thefjx.com/privacy-policy" target="_blank" rel="noopener">Privacy</a></nav>
+      <small>Costa del Tech™ is a community initiative of FJX Polo Tecnológico S.L., Málaga, Spain</small>
+    </footer>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script>
+/* Magnetic "Apply to join" (GSAP demo: "magnetic only, overwrite: true").
+   Inside an invisible circle around the button it is pulled toward the cursor, the label a bit more
+   than the pill (parallax); when the cursor leaves the circle it springs back with an elastic ease.
+   Only for mouse/trackpad, and off when the system asks for reduced motion. */
+(function(){
+  const btn=document.getElementById('applyBtn'); if(!btn||!window.gsap) return;
+  if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const inner=btn.querySelector('.mag-in'), RADIUS=140, PULL=.35, PULL_IN=.1;
+  let inside=false;
+  addEventListener('pointermove',e=>{
+    const r=btn.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2, dx=e.clientX-cx, dy=e.clientY-cy;
+    const near=Math.hypot(dx,dy)<RADIUS+Math.max(r.width,r.height)/2;
+    if(near){inside=true;
+      gsap.to(btn,{x:dx*PULL,y:dy*PULL,duration:.45,ease:'power3.out',overwrite:true});
+      gsap.to(inner,{x:dx*PULL_IN,y:dy*PULL_IN,duration:.45,ease:'power3.out',overwrite:true});
+    }else if(inside){inside=false;
+      gsap.to([btn,inner],{x:0,y:0,duration:1.1,ease:'elastic.out(1,0.35)',overwrite:true});
+    }
+  },{passive:true});
+})();
+</script>
+<script>
+(function(){const bg=document.getElementById('burger'),mn=document.getElementById('mnav');
+  const set=o=>{document.body.classList.toggle('menu-open',o);bg.setAttribute('aria-expanded',o);bg.setAttribute('aria-label',o?'Close menu':'Open menu');
+    if(o)mn.hidden=false;else setTimeout(()=>{if(!document.body.classList.contains('menu-open'))mn.hidden=true},560)};
+  bg.addEventListener('click',()=>{const o=!document.body.classList.contains('menu-open');if(o){mn.hidden=false;requestAnimationFrame(()=>set(true))}else set(false)});
+  mn.addEventListener('click',e=>{if(e.target.closest('a'))set(false)});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')set(false)});
+  addEventListener('resize',()=>{if(innerWidth>760)set(false)});})();
+(function(){const dd=document.getElementById('dd'),b=dd.querySelector('.dd-b');
+  b.addEventListener('click',()=>{const o=dd.classList.toggle('open');b.setAttribute('aria-expanded',o)});
+  document.addEventListener('click',e=>{if(!dd.contains(e.target)){dd.classList.remove('open');b.setAttribute('aria-expanded','false')}});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){dd.classList.remove('open');b.setAttribute('aria-expanded','false')}});})();
+</script>
+<script src="tech-text.js"></script>
+<script>
+/* Hero leaf — sways very slowly from the tip of its stem (no hover effect). */
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const svg=document.getElementById('heroLeaf'); let vis=true; const t0=performance.now();
+  new IntersectionObserver(e=>vis=e[0].isIntersecting).observe(svg);
+  (function f(now){
+    if(vis&&!window.heroCovered){const t=(now-t0)/1000, rot=Math.sin(t*2*Math.PI/9)*1.1+Math.sin(t*2*Math.PI/5.3+1)*.3;svg.style.transform=`rotate(${rot.toFixed(3)}deg)`}
+    requestAnimationFrame(f)})(t0);
+})();
+</script>
+<script>
+// Big wordmark: letters turn into dashed vector outlines under the cursor (React Bits · Tech Text)
+TechText(document.getElementById('wm'),{text:'Costa del Tech',fontFamily:'Poppins',fontWeight:600,fontSize:220,letterSpacing:-0.045,align:'left',color:'#FFFFFF',accentColor:'#9CCBFF',margin:0.004,intro:'type',introDuration:1.6,specks:12,reach:180});
+</script>
+<script>
+(function(){
+  // ── trailer (self-hosted, muted, looped) ──
+  const film=document.getElementById('win'), v=document.getElementById('vid');
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let userPaused=reduce, onScreen=false;
+  const apply=()=>{(!userPaused&&onScreen)?v.play().catch(()=>{}):v.pause()};
+  v.addEventListener('playing',()=>film.classList.add('on'));
+  // sound: off by default (autoplay needs it); the button turns the trailer's soundtrack on.
+  // Only one thing plays sound at a time — turning this on stops the record player, and vice versa.
+  const snd=document.getElementById('snd'), sndT=snd.querySelector('.snd-t');
+  const syncSnd=()=>{const on=!v.muted;snd.classList.toggle('on',on);snd.setAttribute('aria-pressed',on);snd.setAttribute('aria-label',on?'Turn sound off':'Turn sound on');sndT.textContent=on?'Mute':'Sound'};
+  snd.addEventListener('click',()=>{v.muted=!v.muted;
+    if(!v.muted){userPaused=false;onScreen=true;v.play().catch(()=>{});dispatchEvent(new CustomEvent('cdt-audio',{detail:'video'}))}
+    syncSnd()});
+  addEventListener('cdt-audio',e=>{if(e.detail!=='video'&&!v.muted){v.muted=true;syncSnd()}});
+  syncSnd();
+  new IntersectionObserver(e=>{onScreen=e[0].isIntersecting;apply()},{threshold:.15}).observe(film);
+
+  // ── growing window: card on the right → full screen (full-width 16:9 on narrow screens) ──
+  const sec=document.getElementById('grow'), stick=document.getElementById('stick'), copy=document.getElementById('copy'),
+        over=document.getElementById('over'), shade=document.getElementById('shade'), cap=document.getElementById('cap');
+  const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+  function frame(){
+    const W=innerWidth,H=innerHeight, narrow=W<820||H>W;
+    const fw=W, fh=narrow?W*9/16:H, fx=0, fy=narrow?H*.24:0;
+    const cw=narrow?W*.88:W*.42, s0=cw/fw, ch=fh*s0;
+    const cx=narrow?(W-cw)/2:W-cw-W*.04, cy=narrow?Math.max(H*.5,copy.getBoundingClientRect().bottom+24):H*.5-ch/2+H*.06;
+    const r=sec.getBoundingClientRect(), total=sec.offsetHeight-H;
+    const p=reduce?1:Math.min(1,Math.max(0,-r.top/(total*.7))), e=ease(p);
+    const x=cx+(fx-cx)*e, y=cy+(fy-cy)*e, sc=s0+(1-s0)*e;
+    film.style.width=fw+'px'; film.style.height=fh+'px';
+    film.style.transform=`translate(${x}px,${y}px) scale(${sc})`;
+    film.style.borderRadius=(14*(1-e))/sc+'px';
+    copy.style.opacity=String(1-Math.min(1,p*2.2));
+    const done=p>.92;
+    over.classList.toggle('show',done); cap.classList.toggle('show',done&&!narrow); shade.classList.toggle('show',done&&!narrow);
+    stick.classList.toggle('dark',narrow&&p>.6); stick.classList.toggle('full',done||(narrow&&p>.6));
+  }
+  let raf=0; const req=()=>{if(!raf)raf=requestAnimationFrame(()=>{raf=0;frame()})};
+  addEventListener('scroll',req,{passive:true}); addEventListener('resize',req); frame();
+
+  // block 2 slides over the pinned hero: the hero sinks back a little and dims;
+  // the header switches once block 2 reaches it
+  const top=document.getElementById('top'), intro=document.querySelector('.intro');
+  function cover(){const gt=sec.getBoundingClientRect().top, p=Math.min(1,Math.max(0,1-gt/innerHeight));
+    if(!reduce){intro.style.transform=`scale(${(1-.05*p).toFixed(4)})`; intro.style.setProperty('--cover',(p*.55).toFixed(3))}
+    window.heroCovered=p>=1; top.classList.toggle('dark',gt<=56)}
+  addEventListener('scroll',cover,{passive:true}); addEventListener('resize',cover); cover();
+})();
+</script>
+<script>
+/* Events: a past event's photo follows the cursor (mouse only) */
+(function(){const peek=document.getElementById('peek'); if(!peek||!matchMedia('(pointer:fine)').matches) return;
+  const img=peek.querySelector('img');
+  document.querySelectorAll('.ev-row[data-img]').forEach(r=>{const pre=new Image();pre.src=r.dataset.img;
+    r.addEventListener('mouseenter',()=>{img.src=r.dataset.img;peek.classList.add('on')});
+    r.addEventListener('mouseleave',()=>peek.classList.remove('on'))});
+  addEventListener('mousemove',e=>{peek.style.left=e.clientX+'px';peek.style.top=e.clientY+'px'},{passive:true});
+})();
+</script>
+<script>
+/* reveal on scroll + header turns dark glass over the dark sections */
+(function(){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -10% 0px'});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+  const top=document.getElementById('top'), dks=[...document.querySelectorAll('.dk')];
+  function hdr(){const y=28;top.classList.toggle('ondark',dks.some(d=>{const r=d.getBoundingClientRect();return r.top<=y&&r.bottom>=y}))}
+  addEventListener('scroll',hdr,{passive:true});addEventListener('resize',hdr);hdr();
+})();
+</script>
+<script src="music-player.js" data-show-from="#events"></script>
+</body>
+</html>
