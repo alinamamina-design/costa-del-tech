@@ -204,7 +204,7 @@ body.menu-open{overflow:hidden}
 .pg5 .it:hover img{filter:none;opacity:1}
 .pg5 .it:hover img.inv{filter:invert(1)}
 
-/* NEWSLETTER — boxed grid like the next event, light theme: hairline cells, a sunset CTA cell, sunset glue dots below.
+/* TALENT (.nlx) — boxed grid like the next event, light theme: hairline cells, a sunset CTA cell, sunset glue dots below.
    Dots: black-on-white canvas (blur + contrast) → "screen" with the deep sunset colours the dots → "multiply" onto the light cell. */
 .nlblk{position:relative;z-index:1;background:var(--wall);padding:clamp(90px,13vh,150px) var(--pad) calc(2*clamp(90px,13vh,150px))}   /* same air as between the other blocks (one block’s bottom + the next one’s top) */
 .nlx{display:grid;grid-template-columns:1.4fr 1fr 1fr;color:var(--ink);border:1px solid rgba(11,23,48,.14);border-radius:20px;overflow:hidden;isolation:isolate;background:var(--wall)}
@@ -273,8 +273,8 @@ body.menu-open{overflow:hidden}
 @media (max-width:900px){.jn-leaf{width:120vw;right:-50vw;top:-2vh}}
 @media (prefers-reduced-motion:reduce){.jn-main{animation:none}}
 /* Join is the main action (big white card, magnet button); story + partner are secondary (quiet glass cards, text links) */
-.jn-g{grid-template-columns:1.25fr 1fr;grid-template-rows:auto auto}
-.jn-main{grid-row:span 2;min-height:420px;padding:clamp(32px,3.4vw,52px)!important;justify-content:space-between}
+.jn-g{grid-template-columns:1.25fr 1fr;grid-template-rows:auto auto auto}
+.jn-main{grid-row:span 3;min-height:420px;padding:clamp(32px,3.4vw,52px)!important;justify-content:space-between}
 .jn-main h3{font-size:clamp(40px,4.4vw,72px)!important;letter-spacing:-.04em!important;line-height:.98!important}
 .jn-main p{font-size:18px!important;max-width:34ch}
 .jn-go{margin-top:auto;align-self:flex-start;font-size:17px;padding:16px 26px}
@@ -389,7 +389,7 @@ html.js .rv.in{opacity:1;transform:none}
         <a href="#collaborator" role="menuitem"><b>Collaborator</b><small>Co-host events, speak, write with us</small></a>
       </div>
     </div>
-    <a href="#member">Talent</a>
+    <a href="#talent">Talent</a>
     <a href="https://luma.com/user/costadeltech" target="_blank" rel="noopener">Luma<span class="ext">↗</span></a>
     <a href="https://www.linkedin.com/company/costadeltech" target="_blank" rel="noopener">LinkedIn<span class="ext">↗</span></a>
     <a class="cta" href="mailto:press@thefjx.com?subject=Apply%20to%20join%20Costa%20del%20Tech">Apply to join</a>
@@ -403,7 +403,7 @@ html.js .rv.in{opacity:1;transform:none}
     <a href="#partner">Partner<small>Companies and institutions building the region</small></a>
     <a href="#collaborator">Collaborator<small>Co-host events, speak, write with us</small></a>
   </details>
-  <a href="#member">Talent</a>
+  <a href="#talent">Talent</a>
   <a href="https://luma.com/user/costadeltech" target="_blank" rel="noopener">Luma <span class="ext">↗</span></a>
   <a href="https://www.linkedin.com/company/costadeltech" target="_blank" rel="noopener">LinkedIn <span class="ext">↗</span></a>
   <div class="m-cta"><a href="mailto:press@thefjx.com?subject=Apply%20to%20join%20Costa%20del%20Tech">Apply to join →</a></div>
@@ -480,14 +480,14 @@ html.js .rv.in{opacity:1;transform:none}
 
   </section>
 
-  <!-- ═══ NEWSLETTER · its own block, on the glue dots ═══ -->
-  <section class="nlblk" id="newsletter">
-    <!-- same boxed grid as the next event, in the light theme: facts in cells, a sunset CTA cell, glue dots underneath (MVP copy) -->
+  <!-- ═══ TALENT · FJX Tech Talent (talent.thefjx.com), boxed grid on the glue dots ═══ -->
+  <section class="nlblk" id="talent">
+    <!-- same boxed grid as the next event, in the light theme: facts in cells, a sunset CTA cell, glue dots underneath (copy from talent.thefjx.com) -->
     <div class="nlx">
-      <div class="nlx-main"><h3 class="nlx-t">The monthly<br><span>newsletter</span></h3></div>
-      <div class="nlx-cell"><span class="nlx-lab">How often</span><span class="nlx-val">Once <br>a month</span></div>
-      <div class="nlx-cell"><span class="nlx-lab">Readers</span><span class="nlx-val">800+ founders, engineers <br>and tech leaders</span></div>
-      <a class="nlx-cta" href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7470495908846104576" target="_blank" rel="noopener"><span><span class="nlx-lab">On LinkedIn</span><b>Subscribe <i class="nlx-arr" aria-hidden="true">↗</i></b></span></a>
+      <div class="nlx-main"><h3 class="nlx-t">Tech<br><span>Talent</span></h3></div>
+      <div class="nlx-cell"><span class="nlx-lab">Services</span><span class="nlx-val">Recruitment, relocation, <br>residency and retention</span></div>
+      <div class="nlx-cell"><span class="nlx-lab">Placed</span><span class="nlx-val">150+ tech professionals <br>since inception</span></div>
+      <a class="nlx-cta" href="https://talent.thefjx.com/#contact" target="_blank" rel="noopener"><span><span class="nlx-lab">FJX Tech Hub</span><b>Book a 30-min scoping call <i class="nlx-arr" aria-hidden="true">↗</i></b></span></a>
       <div class="nlx-dots" data-glue="invert" aria-hidden="true"><canvas></canvas></div>
     </div>
   </section>
@@ -504,7 +504,7 @@ html.js .rv.in{opacity:1;transform:none}
     <div class="tm-g"><figure class="rv"><div class="disc"><div class="ph"><img src="assets/team-natalia-fel.webp" alt="" loading="lazy"></div></div><figcaption><b>Natalia Fel</b><small>Community Lead · CEO, FJX Tech</small></figcaption></figure><figure class="rv"><div class="disc"><div class="ph"><img src="assets/team-moritz-jansen.webp" alt="" loading="lazy"></div></div><figcaption><b>Moritz Jansen</b><small>Film director · FJX Media</small></figcaption></figure><figure class="rv"><div class="disc"><div class="ph"><img src="assets/team-tatiana-sinitsyna.webp" alt="" loading="lazy"></div></div><figcaption><b>Tatiana Sinitsyna</b><small>Community &amp; Events</small></figcaption></figure><figure class="rv"><div class="disc"><div class="ph"><img src="assets/team-silvia-garcia-guijo.webp" alt="" loading="lazy"></div></div><figcaption><b>Silvia García Guijo</b><small>Community Ambassador</small></figcaption></figure></div>
   </section>
 
-  <!-- ═══ JOIN + FOOTER ═══ -->
+  <!-- ═══ JOIN (member · collaborator · partner · newsletter) + FOOTER ═══ -->
   <section class="sec join dk" id="join">
     <div class="jn-leaf" aria-hidden="true"><svg viewBox="0 0 2700 2073"><use href="#leaf" width="2700" height="2073"/></svg></div>
     <div class="rv"><h2 class="st" style="margin-top:0">Join, speak,<br><span>host or partner.</span></h2></div>
@@ -512,6 +512,7 @@ html.js .rv.in{opacity:1;transform:none}
       <article class="jn-c jn-main rv" id="member"><h3>Become a member</h3><p>A few lines about you and your LinkedIn.<br>We reply by email.</p><a class="btn mbtn jn-go" data-magnet href="mailto:press@thefjx.com?subject=Apply%20to%20join%20Costa%20del%20Tech"><span class="mag-in">Apply to join</span></a></article>
       <article class="jn-c jn-sub rv" id="collaborator"><span class="n">Collaborator</span><h3>Share your story</h3><p>Pitch a talk, a Deep Dive or an interview — or add your event to the Digest.</p><a class="jn-link" href="mailto:press@thefjx.com?subject=Speak%20or%20share%20a%20story%20at%20Costa%20del%20Tech">Pitch a story <span aria-hidden="true">→</span></a></article>
       <article class="jn-c jn-sub rv" id="partner"><span class="n">Partner</span><h3>Partner with us</h3><p>Co-host an event, share tickets or put your company in Episode 2.</p><a class="jn-link" href="mailto:press@thefjx.com?subject=Partner%20with%20Costa%20del%20Tech">Get in touch <span aria-hidden="true">→</span></a></article>
+      <article class="jn-c jn-sub rv" id="newsletter"><span class="n">Newsletter</span><h3>The monthly newsletter</h3><p>Ecosystem news, interviews and the Events Digest.</p><a class="jn-link" href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7470495908846104576" target="_blank" rel="noopener">Subscribe <span aria-hidden="true">↗</span></a></article>
     </div>
     <footer class="fb">
       <div class="logos"><svg viewBox="0 0 3354 2465" aria-hidden="true"><use href="#cdtLogo"/></svg><img src="assets/fjx-tech-logo-white.png" alt="FJX Tech"></div>
