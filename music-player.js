@@ -63,15 +63,20 @@ music</span></span>
   document.body.appendChild(btn);
   const word = btn.querySelector('.cdt-word'), bars = [...btn.querySelectorAll('.cdt-bars i')];
 
-  /* ── show from the third block on ── */
+  /* ── show from the third block on; hide again when the last block (data-hide-at) comes in ── */
   const anchor = document.querySelector(SHOW_FROM);
-  const place = () => { const top = anchor ? anchor.getBoundingClientRect().top : 0; btn.classList.toggle('show', top < innerHeight * .75); };
+  const hideAt = script && script.dataset.hideAt ? document.querySelector(script.dataset.hideAt) : null;
+  const place = () => {
+    const top = anchor ? anchor.getBoundingClientRect().top : 0;
+    const end = hideAt ? hideAt.getBoundingClientRect().top < innerHeight * .75 : false;   // music keeps playing; only the sleeve hides
+    btn.classList.toggle('show', top < innerHeight * .75 && !end);
+  };
   addEventListener('scroll', place, { passive: true }); addEventListener('resize', place); place();
 
   /* ── audio: "Momentum" — melodic house, 122 BPM, builds up ──
      Loop 1: rolling bass, wide string pads, kick. Loop 2 (+~8 s): open hats, claps, arpeggio.
      Loop 3: the emotional lead. A rising sweep leads into each new part, a soft cymbal opens it. */
-  let ctx, master, padBus, analyser, data, playing = false, timer = 0, nextT = 0, step = 0, audioEl;
+  let ctx, master, padBus, analyser, data, fine, fdata, playing = false, timer = 0, nextT = 0, step = 0, audioEl;
   const SONG = {
     bpm: 122,
     chords: [[52, 55, 59, 64], [52, 55, 60, 64], [50, 55, 59, 62], [50, 54, 57, 62]],   // Em – C – G – D
@@ -86,8 +91,9 @@ music</span></span>
     ctx = new (window.AudioContext || window.webkitAudioContext)();
     master = ctx.createGain(); master.gain.value = 0;
     const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -16; comp.ratio.value = 3;
-    analyser = ctx.createAnalyser(); analyser.fftSize = 64; data = new Uint8Array(analyser.frequencyBinCount);
+    analyser = ctx.createAnalyser(); analyser.fftSize = 64; analyser.smoothingTimeConstant = .6; data = new Uint8Array(analyser.frequencyBinCount);
     master.connect(comp); comp.connect(analyser); analyser.connect(ctx.destination);
+    fine = ctx.createAnalyser(); fine.fftSize = 512; fine.smoothingTimeConstant = .55; fdata = new Uint8Array(fine.frequencyBinCount); comp.connect(fine);   // detailed spectrum for the glue dots
     padBus = ctx.createGain(); padBus.connect(master);   // pads & arp duck on every kick ("pump")
     if (TRACK_URL) { audioEl = new Audio(TRACK_URL); audioEl.loop = true; audioEl.crossOrigin = 'anonymous'; ctx.createMediaElementSource(audioEl).connect(master); }
   }
@@ -153,6 +159,8 @@ music</span></span>
     setTimeout(() => { if (!playing) { clearInterval(timer); if (audioEl) audioEl.pause(); } }, 650);
     btn.classList.remove('on'); btn.setAttribute('aria-pressed', 'false'); btn.setAttribute('aria-label', 'Play music'); word.textContent = 'Play\nmusic';
   }
+  // other scripts (the glue dots) read the live spectrum: { bins: 0–255 per bin, hz: bin width }, or null when the music is off
+  window.cdtSpectrum = () => { if (!playing || !fine) return null; fine.getByteFrequencyData(fdata); return { bins: fdata, hz: ctx.sampleRate / fine.fftSize }; };
   btn.addEventListener('click', () => (playing ? stop() : play()));
   addEventListener('cdt-audio', e => { if (e.detail !== 'player' && playing) stop(); });   // video sound turned on
   document.addEventListener('visibilitychange', () => { if (document.hidden && playing) stop(); });

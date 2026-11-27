@@ -8,11 +8,11 @@ Static HTML/CSS/JS, no build step.
 - `index.html` — the page (inline CSS + small inline scripts; GSAP from CDN for the magnetic Apply button)
 - `music-player.js` — "Play music" record sleeve (Web Audio track; set `TRACK_URL` for a real mp3)
 - `tech-text.js` — hero wordmark effect (vanilla port of React Bits TechText)
-- `assets/` — only files the page uses; photos are `.webp` (team 320px, event photos 640px)
+- `assets/` — only files the page uses; photos are `.webp` (team 320px, event + hub photos up to 2000px)
 - `video/trailer-web.mp4` (+ `trailer-poster.webp`; `.jpg` kept for og:image)
 
 ## Page blocks
-Hero · Video (about + numbers + film credit) · Our events (+ Friends & partners logos) · Ambassadors & team · Join + newsletter + footer
+Hero · Video · Our events (next event + glue dots) · Communities we build with (logos) · 2026 so far (event list + photo pile) · Monthly newsletter · FJX Tech Hub (scrubbed bento) · Our team · Join + footer
 
 ## _archive/
 - `variants/` — all option pages we chose from (may not render fully: paths point to files that moved)
@@ -20,4 +20,4 @@ Hero · Video (about + numbers + film credit) · Our events (+ Friends & partner
 - `masters/` — full-size originals (photos, unused MVP assets, the 155 MB trailer master, old hero video)
 
 ## To confirm with Natalia
-December meetup date and programme · what "Talent" in the menu should open · real photos for BiznagaFest, Deep Dive, partner conferences · dark J On The Beach / official Les Roches logo
+December meetup date + Luma link · what "Talent" in the menu should open · Solar Eclipse / Hiking dates · dark J On The Beach / official Les Roches logo

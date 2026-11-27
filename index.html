@@ -18,7 +18,7 @@
 :root{
   --ink:#0B1730; --navy:#0F1E3D; --navy-2:#13305F; --blue:#1F5FBF; --sky:#5AA9FF; --pale:#EEF5FF; --cobalt:#1F3FA8; --wall:#F6F5F2;
   --sans:'Geist',system-ui,sans-serif; --display:'Poppins',system-ui,sans-serif; --mono:'Geist Mono',ui-monospace,monospace;
-  --pad:clamp(20px,2.1vw,30px);
+  --pad:clamp(24px,4.4vw,64px);   /* wider page margins: titles and content share one edge */
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -31,13 +31,14 @@ a{color:inherit;text-decoration:none}
 .top.dark{height:56px;background:rgba(238,245,255,.5);color:var(--ink)}
 
 .top.dark .nav .cta{background:var(--cobalt);color:#fff}
+.top.dark .nav .cta:hover{background:var(--ink)}   /* simple hover: cobalt → ink */
 .logo{display:flex;align-items:center;color:inherit}
 .logo svg{height:40px;width:auto;display:block;transition:height .3s}
 .top.dark .logo svg{height:32px}   /* official Costa del Tech wordmark, as in the MVP */
 .nav{display:flex;align-items:center;gap:24px;font-size:15px;letter-spacing:-.01em}
 .nav a{opacity:.85;transition:opacity .2s}
 .nav a:hover{opacity:1}
-.nav .cta{opacity:1;border:0;background:#fff;color:var(--cobalt);padding:9px 16px;border-radius:999px;font-weight:400;transition:background .2s,color .2s}
+.nav .cta{opacity:1;border:0;background:#fff;color:var(--cobalt);padding:10px 18px;border-radius:2px;font-family:var(--display);font-weight:500;transition:background .2s,color .2s}   /* same square button as the rest of the site */
 .nav .cta:hover{background:var(--pale)}
 .nav .ext{opacity:.6;font-size:.85em;margin-left:2px}
 /* mobile menu: burger → full-screen cobalt panel */
@@ -60,7 +61,7 @@ a{color:inherit;text-decoration:none}
 .mnav details a small{display:block;font-family:var(--sans);font-size:14px;font-weight:300;opacity:.7;letter-spacing:0}
 .mnav .ext{font-size:.6em;opacity:.6}
 .mnav .m-cta{margin-top:auto;padding-top:28px}
-.mnav .m-cta a{display:inline-block;font-size:18px;background:#fff;color:var(--cobalt);padding:16px 26px;border-radius:999px;letter-spacing:0}
+.mnav .m-cta a{display:inline-block;font-size:18px;background:#fff;color:var(--cobalt);padding:16px 26px;border-radius:2px;font-family:var(--display);font-weight:500;letter-spacing:0}
 .menu-open .mnav a,.menu-open .mnav summary{opacity:1;transform:none}
 .menu-open .mnav>*:nth-child(1) *{transition-delay:.15s}.menu-open .mnav>*:nth-child(2) summary{transition-delay:.2s}
 .menu-open .mnav>*:nth-child(3){transition-delay:.25s}.menu-open .mnav>*:nth-child(4){transition-delay:.3s}
@@ -103,95 +104,186 @@ body.menu-open{overflow:hidden}
 .row .btn{position:relative;overflow:hidden;isolation:isolate;transition:transform .25s cubic-bezier(.2,.9,.25,1.2),box-shadow .25s,background .2s}
 .row .btn:hover{box-shadow:0 12px 28px rgba(11,23,48,.3)}   /* movement comes from the GSAP magnet below */
 .row .btn .mag-in{display:inline-flex;align-items:center;gap:10px;pointer-events:none}
-.row .btn .arr{display:inline-block;transition:transform .3s cubic-bezier(.2,.9,.25,1.4)}
-.row .btn:hover .arr{transform:translateX(5px)}
 
 .btn{justify-self:end;display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:500;font-size:15px;background:#fff;color:var(--cobalt);padding:13px 20px;border-radius:2px;transition:background .2s}
 .btn:hover{background:var(--pale)}
 
-/* ── EVENTS · editorial list (events-variants D). Hover a row → its photo follows the cursor.
-   Some photos are stand-ins from other events until Natalia sends the real ones. ── */
+/* ── EVENTS · "Our events": the next event as a ruled two-column block; past events as photo tiles in their own section ── */
 .events{position:relative;z-index:1;background:var(--wall);color:var(--ink);padding:clamp(90px,13vh,150px) var(--pad)}
 .ev-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:48px}
 .ev-t{font-family:var(--display);font-weight:600;font-size:clamp(48px,6vw,100px);line-height:.95;letter-spacing:-.045em}
 .ev-t span{color:var(--cobalt)}
+.sec-t{margin:20px 0 48px}   /* title under a ↘ kicker */
+.dk .ev-t span{color:var(--sky)}
 .ev-all{font-family:var(--mono);font-weight:500;font-size:15px;opacity:.85;transition:opacity .2s,color .2s}
 .ev-all:hover{opacity:1;color:var(--cobalt)}
-.ev-sec{margin:52px 0 12px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;opacity:.55}
-.ev-head+.ev-sec{margin-top:0}
-.ev-list{border-top:1px solid var(--ink)}
-.ev-row{display:grid;grid-template-columns:150px 1fr minmax(0,320px) 190px;gap:24px;align-items:center;padding:24px 0;border-bottom:1px solid rgba(11,23,48,.14);transition:padding .3s,background .3s}
-.ev-row:hover{padding-left:16px;padding-right:16px;background:#fff}
-.ev-row .dt{font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.04em}
-.ev-row.up .dt{color:var(--cobalt)}
-.ev-row h4{font-family:var(--display);font-weight:500;font-size:clamp(19px,1.9vw,27px);letter-spacing:-.015em;line-height:1.2}
-.ev-row .nt{font-size:15px;line-height:1.45;opacity:.65}
-.ev-go{justify-self:end;display:inline-flex;align-items:center;gap:10px;background:var(--cobalt);color:#fff;font-family:var(--mono);font-weight:500;font-size:13px;text-transform:uppercase;letter-spacing:.08em;padding:15px 22px;white-space:nowrap;transition:background .2s}
-.ev-go span{transition:transform .25s}
-.ev-row.open:hover .ev-go{background:var(--ink)}.ev-row.open:hover .ev-go span{transform:translateX(4px)}
-.peek{position:fixed;z-index:40;left:0;top:0;width:300px;aspect-ratio:4/3;border-radius:12px;overflow:hidden;pointer-events:none;opacity:0;
-  transform:translate(-50%,-50%) scale(.92);transition:opacity .25s,transform .25s;box-shadow:0 20px 50px rgba(11,23,48,.3)}
-.peek.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
-.peek img{width:100%;height:100%;object-fit:cover}
-@media (max-width:860px){.ev-row{grid-template-columns:1fr;gap:6px 16px}.ev-row .dt,.ev-row h4,.ev-row .nt{grid-column:1}.ev-go{grid-column:1;justify-self:start;margin-top:10px}.peek{display:none}}
+.nx{display:grid;grid-template-columns:1.4fr 1fr 1fr;border:1px solid var(--ink);border-radius:20px;overflow:hidden}
+.nx>*{padding:clamp(22px,2.4vw,32px);border-right:1px solid rgba(11,23,48,.14);border-bottom:1px solid rgba(11,23,48,.14)}
+.nx-main{grid-row:span 2;display:flex;flex-direction:column;justify-content:space-between;gap:36px}
+.nx-t{font-family:var(--display);font-weight:600;font-size:clamp(34px,4vw,64px);line-height:1;letter-spacing:-.04em}
+.nx-t span{color:var(--cobalt)}
+.nx-sub{margin-top:18px;font-family:var(--mono);font-size:13px;line-height:1.65;text-transform:uppercase;letter-spacing:.06em;opacity:.6}
+.nx-cell{display:grid;align-content:space-between;gap:28px;min-height:170px}
+.nx-cell:nth-child(3){border-right:0}
+.nx-lab{display:block;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;opacity:.55}
+.nx-val{font-size:clamp(18px,1.6vw,22px);line-height:1.35}
+.nx-cta{grid-column:span 2;display:flex;align-items:center;justify-content:space-between;gap:20px;background:var(--cobalt);color:#fff;border-right:0;transition:background .2s}
+.nx-cta:hover{background:var(--ink)}
+.nx-cta .nx-lab{opacity:.7;margin-bottom:8px}
+.nx-cta b{font-family:var(--display);font-weight:500;font-size:clamp(22px,2.2vw,30px);letter-spacing:-.02em}
+/* partners: own section between the dark events block and "2026 so far" */
+/* dark-navy theme for the events block (class .dk also turns the header into dark glass) */
+.events.dk{background:var(--ink);color:#fff;padding-top:clamp(120px,16vh,190px);padding-bottom:calc(clamp(120px,16vh,190px) + 28px)}   /* equal air above and below; +28px is hidden under the partners block’s rounded top */
+.events.dk .ev-t span,.events.dk .nx-t span,.events.dk .sk i{color:var(--sky)}
+.events.dk .ev-all:hover{color:var(--sky)}
+.events.dk .nx{border-color:rgba(255,255,255,.35)}
+.events.dk .nx>*{border-color:rgba(255,255,255,.14)}
+.events.dk .nx-sub,.events.dk .nx-lab{opacity:.6}
+.events.dk .nx-cta:hover{background:#fff;color:var(--ink)}
+/* Glue dots — a field of dots that stick together and stretch apart under the cursor; press for a ripple.
+   Drawn white-on-black in a canvas, merged with blur + contrast, tinted sky with a multiply layer,
+   then "lightened" onto the navy so black disappears. Own implementation (idea: React Bits Pro "Glue Dots"). */
+.nx-glue{grid-column:1/-1;position:relative;height:clamp(100px,10vw,150px);padding:0!important;border-right:0!important;border-bottom:0!important;overflow:hidden;mix-blend-mode:lighten;cursor:crosshair;touch-action:pan-y}
+.nx-glue canvas{position:absolute;inset:-20px;width:calc(100% + 40px);height:calc(100% + 40px);display:block;background:#000;filter:blur(7px) contrast(26)}
+.nx-glue::after{content:"";position:absolute;inset:0;background:var(--sky);mix-blend-mode:multiply;pointer-events:none}
+/* partners: light block sliding over the dark events block — rounded top + soft shadow, like hero → video */
+.partners{position:relative;z-index:2;background:var(--wall);color:var(--ink);padding:clamp(80px,11vh,130px) var(--pad);margin-top:-28px;border-radius:28px 28px 0 0;box-shadow:0 -30px 70px rgba(11,23,48,.28);clip-path:inset(-140px 0 0 0 round 28px 28px 0 0)}  /* keep the shadow above only, not bleeding onto the next block */
+.partners .cohost{margin-top:0}
+.team .sec-t{margin-bottom:clamp(56px,6vw,88px)}
+.partners .sec-t{margin-bottom:clamp(64px,7vw,104px)}   /* more air between the title and the logos */
+/* every section title is indented to the same line as the event names in "2026 so far" (date column 96px + 16px gap) */
+.past .ev-head{padding-left:112px}   /* only here: the title starts on the line of the event names; every other title sits on its content's left edge */
+@media (max-width:860px){.past .ev-head{padding-left:100px}}
+@media (max-width:600px){.past .ev-head{padding-left:0}}
+@media (max-width:600px){.nlx-val br,.nx-val br{display:none}}   /* phone: let the cell values wrap naturally */   /* phone: too narrow for the indent — the title would break onto two lines */
+/* 2026 so far — deck: big names on the left; the photos sit in a neat stack and the hovered one comes to the front */
+.past{position:relative;z-index:1;background:var(--wall);color:var(--ink);padding:clamp(90px,13vh,150px) var(--pad);box-shadow:0 -3px 0 var(--wall)}
+.deck{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(30px,5vw,90px);align-items:start}
+.deck-l{padding-top:48px}   /* list starts level with the top of the front photo (the stack fans 48px above it) */
+@media (max-width:860px){.deck-l{padding-top:0}}
+.deck ul{list-style:none}
+.deck li a{display:flex;align-items:baseline;gap:16px;padding:12px 0;opacity:.25;transition:opacity .3s}
+.deck li a .dt{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;min-width:96px}
+.deck li a .nm{font-family:var(--display);font-weight:600;font-size:clamp(26px,3vw,46px);letter-spacing:-.035em;line-height:1.05;transition:color .3s}
+.deck li.on a{opacity:1}.deck li.on a .nm{color:var(--cobalt)}
+/* buttons with the magnet (hero-style pill) */
+.mbtn{justify-self:start;position:relative;isolation:isolate;background:var(--cobalt);color:#fff;transition:box-shadow .25s,background .2s}
+.mbtn:hover{background:var(--cobalt);box-shadow:0 12px 28px rgba(31,63,168,.35)}
+.mbtn .mag-in{display:inline-flex;align-items:center;gap:10px;pointer-events:none}
+/* newsletter banner sits under the event list: stacked text + button */
+.deck-l{display:grid;gap:clamp(40px,5vh,64px);align-content:center}
+/* newsletter banner — the sunset gradient of the record player, a frosted row inside, ink button with the magnet */
+
+.deck .pile{position:relative;aspect-ratio:4/3;margin:48px 0 0 48px}   /* cards fan up-left, so the front photo ends on the content edge (in line with the banner) */
+.deck figure{position:absolute;inset:0;border-radius:20px;overflow:hidden;background:var(--pale);box-shadow:0 20px 50px rgba(11,23,48,.18);transition:transform .6s cubic-bezier(.2,.7,.2,1),opacity .6s}
+.deck figure img{width:100%;height:100%;object-fit:cover}
+.deck figcaption{position:absolute;left:0;right:0;bottom:0;padding:40px 20px 16px;color:#fff;font-size:15px;background:linear-gradient(transparent,rgba(11,23,48,.7))}
+@media (max-width:860px){.nx{grid-template-columns:1fr 1fr}.nx-main{grid-row:auto;grid-column:span 2;border-right:0;border-bottom:1px solid rgba(11,23,48,.14)}.nx-cell{min-height:130px}.nx-cell:nth-child(2){border-right:1px solid rgba(11,23,48,.14)}}   /* next event on tablet/phone */
+@media (max-width:860px){.deck{grid-template-columns:1fr}.deck .pile{order:-1;margin:36px 0 0 36px}.deck li a .nm{font-size:24px}.deck li a .dt{min-width:84px}}
 
 /* ══ REST OF THE PAGE · hero · video · events (+ partners) · team · join + newsletter + footer ══ */
-.grow .film-note{margin-top:22px;font-family:var(--mono);font-size:12.5px;line-height:1.7;text-transform:uppercase;letter-spacing:.05em;opacity:.6}
-.grow .film-note a{border-bottom:1px solid currentColor}
 .sec{position:relative;z-index:1;padding:clamp(90px,13vh,150px) var(--pad);color:var(--ink)}
 .sk{font-family:var(--mono);font-size:14px;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:10px}
 .sk i{font-style:normal;color:var(--cobalt)}
-.st{font-family:var(--display);font-weight:600;font-size:clamp(48px,6.4vw,110px);line-height:.92;letter-spacing:-.045em;margin-top:22px}
+.st{font-family:var(--display);font-weight:600;font-size:clamp(48px,6vw,100px);line-height:.95;letter-spacing:-.045em;margin-top:22px}
 .st span{color:var(--cobalt)}
-.bt{display:inline-flex;align-items:center;gap:12px;font-family:var(--mono);font-weight:500;font-size:13px;text-transform:uppercase;letter-spacing:.08em;padding:16px 24px;transition:background .2s,color .2s;white-space:nowrap}
-.bt span{transition:transform .25s}.bt:hover span{transform:translateX(4px)}
-.bt.cob{background:var(--cobalt);color:#fff}.bt.cob:hover{background:var(--ink)}
-.bt.wh{background:#fff;color:var(--ink)}.bt.wh:hover{background:var(--pale)}
 .dk{color:#fff}.dk .sk i,.dk .st span{color:var(--sky)}
 
 /* EVENTS · friends & partners — open 5×3 grid, no lines; grey → own colours on hover */
 .cohost{margin-top:clamp(90px,12vh,130px)}
-.sh{font-family:var(--display);font-weight:500;font-size:clamp(28px,2.8vw,42px);letter-spacing:-.03em;line-height:1.1;margin:16px 0 40px}
-.pg5 b{font-family:var(--display);font-weight:600;font-size:21px;letter-spacing:-.01em;white-space:nowrap;color:var(--ink);opacity:.55;transition:opacity .35s}
+.pg5 b{font-family:var(--display);font-weight:600;font-size:25px;letter-spacing:-.01em;white-space:nowrap;color:var(--ink);opacity:.55;transition:opacity .35s}
 .pg5 .it:hover b{opacity:1}
 .pg5 .it:has(img+b){display:flex;justify-content:center;align-items:center;gap:10px}
-.pg5 .it:has(img+b) b{font-size:20px}   /* Les Roches: mark + name as one lock-up */
-.pg5{display:grid;grid-template-columns:repeat(5,1fr);row-gap:44px;column-gap:24px;align-items:center}
-.pg5 .it{display:grid;place-items:center;height:64px;min-width:0}
-@media (max-width:860px){.pg5{grid-template-columns:repeat(3,1fr);row-gap:32px}}
-@media (max-width:520px){.pg5{grid-template-columns:repeat(2,1fr);row-gap:20px;column-gap:16px}.pg5 img{height:calc(var(--h,30px) * .72)}.pg5 b,.pg5 .it:has(img+b) b{font-size:16px}.pg5 .it:has(img+b){gap:6px}}
-.pg5 img{display:block;height:var(--h,30px);width:auto;max-width:min(180px,100%);object-fit:contain;filter:grayscale(1);opacity:.55;mix-blend-mode:multiply;transition:filter .35s,opacity .35s}
+.pg5 .it:has(img+b) b{font-size:25px}   /* Les Roches: mark + name as one lock-up */
+.pg5{display:grid;grid-template-columns:repeat(5,1fr);row-gap:clamp(40px,5vw,72px);column-gap:24px;align-items:center}
+.pg5 .it{display:grid;place-items:center;height:96px;min-width:0}
+@media (max-width:860px){.pg5{grid-template-columns:repeat(3,1fr);row-gap:44px}}
+@media (max-width:520px){.pg5{grid-template-columns:repeat(2,1fr);row-gap:32px;column-gap:16px}.pg5 img{height:calc(var(--h,30px) * .95)}.pg5 b,.pg5 .it:has(img+b) b{font-size:16px}.pg5 .it:has(img+b){gap:6px}}
+.pg5 img{display:block;height:calc(var(--h,30px) * 1.35);width:auto;max-width:min(230px,100%);object-fit:contain;filter:grayscale(1);opacity:.55;mix-blend-mode:multiply;transition:filter .35s,opacity .35s}
 .pg5 img.inv{filter:invert(1) grayscale(1)}
 .pg5 .it:hover img{filter:none;opacity:1}
 .pg5 .it:hover img.inv{filter:invert(1)}
 
+/* NEWSLETTER — boxed grid like the next event, light theme: hairline cells, a sunset CTA cell, sunset glue dots below.
+   Dots: black-on-white canvas (blur + contrast) → "screen" with the deep sunset colours the dots → "multiply" onto the light cell. */
+.nlblk{position:relative;z-index:1;background:var(--wall);padding:clamp(90px,13vh,150px) var(--pad) calc(2*clamp(90px,13vh,150px))}   /* same air as between the other blocks (one block’s bottom + the next one’s top) */
+.nlx{display:grid;grid-template-columns:1.4fr 1fr 1fr;color:var(--ink);border:1px solid rgba(11,23,48,.14);border-radius:20px;overflow:hidden;isolation:isolate;background:var(--wall)}
+.nlx>*{padding:clamp(22px,2.4vw,32px);border-right:1px solid rgba(11,23,48,.14);border-bottom:1px solid rgba(11,23,48,.14)}
+.nlx-main{grid-row:span 2;display:flex;flex-direction:column;justify-content:space-between;gap:36px}
+.nlx-t{font-family:var(--display);font-weight:600;font-size:clamp(34px,4vw,64px);line-height:1;letter-spacing:-.04em}
+.nlx-t span{color:var(--cobalt)}
+@media (min-width:861px){.nlx-main{padding-top:calc(170px - clamp(22px,2.4vw,32px) - 2.7*clamp(18px,1.6vw,22px))}}   /* title top lines up with the "Once a month" value (cells: 170px tall, value pinned to the bottom) */
+.nlx-cell{display:grid;align-content:space-between;gap:28px;min-height:170px}
+.nlx-cell:nth-child(3){border-right:0}
+.nlx-lab{display:block;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;opacity:.55}
+.nlx-val{font-size:clamp(18px,1.6vw,22px);line-height:1.35}
+.nlx-cta{grid-column:span 2;display:flex;align-items:center;justify-content:space-between;gap:20px;border-right:0;color:var(--ink);
+  background:linear-gradient(135deg,#FF9E7A,#FFD36E 35%,#9CCBFF 70%,#B79CFF);background-size:200% 200%;animation:sunflow 10s ease-in-out infinite;transition:filter .2s}
+.nlx-cta:hover{filter:brightness(1.05) saturate(1.1)}
+.nlx-cta .nlx-lab{opacity:.7;margin-bottom:8px}
+.nlx-cta b{font-family:var(--display);font-weight:500;font-size:clamp(22px,2.2vw,30px);letter-spacing:-.02em}
+.nlx-arr{display:inline-block;font-style:normal;font-weight:400;margin-left:.15em;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.nlx-cta:hover .nlx-arr,.nx-cta:hover .nlx-arr{transform:translate(3px,-3px)}
+.nlx-dots{grid-column:1/-1;position:relative;height:clamp(100px,10vw,150px);padding:0!important;border-right:0!important;border-bottom:0!important;overflow:hidden;mix-blend-mode:multiply;isolation:isolate;cursor:crosshair;touch-action:pan-y}
+.nlx-dots canvas{position:absolute;inset:-20px;width:calc(100% + 40px);height:calc(100% + 40px);display:block;background:#fff;filter:blur(7px) contrast(26)}
+.nlx-dots::after{content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;background:linear-gradient(90deg,#FF8A5B,#FF5E94 30%,#A66BFF 62%,#4F8DFF);background:linear-gradient(90deg in oklab,#FF8A5B,#FF5E94 30%,#A66BFF 62%,#4F8DFF);background-size:200% 200%;animation:sunflow 12s ease-in-out infinite}
+@media (max-width:860px){.nlx{grid-template-columns:1fr 1fr}.nlx-main{grid-row:auto;grid-column:span 2;border-right:0}.nlx-cell{min-height:130px}.nlx-cell:nth-child(2){border-right:1px solid rgba(11,23,48,.14)}}
+@media (prefers-reduced-motion:reduce){.nlx-cta,.nlx-dots::after{animation:none}}
+
+/* THE HUB — bento of 7 photos, the lounge in the centre cell. Pinned while you scroll; the whole grid scales up
+   around the centre cell until it covers the screen (idea: GSAP "Scrubbed bento gallery"; own build with ScrollTrigger). */
+.hubg{position:relative;z-index:1;background:var(--wall);color:var(--ink);padding:0;box-shadow:0 -3px 0 var(--wall)}   /* hides the sub-pixel seam above */
+.hubg .ev-head{padding:0 var(--pad);position:relative;z-index:2;margin-bottom:calc(28px - clamp(70px,9vh,90px))}   /* the pin keeps its top padding (clears the header while pinned); the title sits inside it, 28px above the photos */
+.bento-pin{position:relative;height:100vh;display:grid;place-items:center;overflow:hidden;padding:clamp(70px,9vh,90px) var(--pad) var(--pad)}
+.bento{width:100%;height:100%;display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr 1fr;gap:12px}
+.bento figure{position:relative;overflow:hidden;border-radius:16px;background:var(--pale)}
+.bento img{width:100%;height:100%;object-fit:cover;display:block}
+.bento .b1{grid-column:1;grid-row:1/3}.bento .b2{grid-column:2;grid-row:1}.bento .b3{grid-column:3;grid-row:1/3}
+.bento .b4{grid-column:2;grid-row:2}.bento .b5{grid-column:1;grid-row:3}.bento .b6{grid-column:2;grid-row:3}.bento .b7{grid-column:3;grid-row:3}
+@media (max-width:700px){.bento{gap:8px}.bento figure{border-radius:10px}}
 /* TEAM · round photos on an offset sky disc */
-.team{background:var(--wall);display:grid;grid-template-columns:1fr;gap:0;padding-top:0;box-shadow:0 -3px 0 var(--wall);  /* covers a sub-pixel seam where the pinned cobalt hero shows through */
-  padding-bottom:clamp(90px,13vh,150px)}
-.tm-g{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
-.tm-g figure{display:grid;justify-items:start;gap:22px}
-/* round photo over a sky disc offset down-right; on hover the disc turns cobalt and the photo gets its colour */
-.disc{position:relative;width:clamp(120px,11vw,156px);aspect-ratio:1}
-.disc::before{content:"";position:absolute;inset:0;border-radius:50%;background:var(--sky);transform:translate(10px,10px);transition:transform .45s,background .45s}
-.disc .ph{position:relative;width:100%;height:100%;border-radius:50%;overflow:hidden;background:#ddd}
+.team{background:var(--wall);display:grid;grid-template-columns:1fr;gap:0;padding-top:clamp(110px,15vh,170px);padding-bottom:calc(clamp(110px,15vh,170px) + 28px);box-shadow:0 -3px 0 var(--wall)}   /* equal air above and below; +28px sits under the Join block’s rounded top */
+.tm-g{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+.tm-g figure{display:grid;justify-items:center;text-align:center;gap:20px}   /* each person centred in their column */
+/* minimal: plain round photos in grey, colour on hover */
+.disc{width:clamp(112px,9vw,136px);aspect-ratio:1}
+.disc .ph{width:100%;height:100%;border-radius:50%;overflow:hidden;background:#e6e4df}
 .disc img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1);transition:filter .45s}
-.tm-g figure:hover .disc::before{transform:translate(6px,6px);background:var(--cobalt)}
 .tm-g figure:hover .disc img{filter:none}
 .tm-g b{display:block;font-family:var(--display);font-weight:500;font-size:19px;letter-spacing:-.01em}
 .tm-g small{display:block;margin-top:3px;font-size:14.5px;line-height:1.4;opacity:.6}
 
 /* JOIN + NEWSLETTER + FOOTER · one closing block */
-.join{background:var(--cobalt);padding-bottom:36px}
-@media (max-width:600px){.join{padding-bottom:120px}}   /* leave room for the Play music sleeve in the corner */
+.join{background:var(--cobalt);padding-bottom:36px;z-index:2;margin-top:-28px;border-radius:28px 28px 0 0;box-shadow:0 -30px 70px rgba(11,23,48,.28);clip-path:inset(-140px 0 0 0 round 28px 28px 0 0)}  /* slides over the team block like the other hand-overs */
+
 .jn-g{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:clamp(48px,7vh,72px)}
 .jn-c{background:#fff;color:var(--ink);border-radius:22px;padding:30px 28px;display:flex;flex-direction:column;gap:12px;min-height:280px;scroll-margin-top:120px}
 .jn-c .n{font-family:var(--mono);font-size:13px;color:var(--cobalt);text-transform:uppercase;letter-spacing:.08em}
 .jn-c h3{font-family:var(--display);font-weight:600;font-size:clamp(26px,2.4vw,34px);letter-spacing:-.03em;line-height:1.05}
 .jn-c p{font-size:16px;line-height:1.5;opacity:.7}
-.jn-c .bt{margin-top:auto;align-self:flex-start}
-.nl{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;margin-top:14px;padding:26px 28px;border-radius:22px;background:rgba(255,255,255,.08)}
-.nl b{font-family:var(--display);font-weight:500;font-size:clamp(20px,1.8vw,24px);letter-spacing:-.015em}
-.nl span{display:block;margin-top:4px;font-size:15px;opacity:.7}
+/* Join: the hero leaf in the corner, and the main card in the moving sunset gradient (like the player and the newsletter) */
+.join{overflow:hidden}
+.join>*:not(.jn-leaf){position:relative;z-index:1}
+.jn-leaf{position:absolute;right:-12vw;top:-8vh;width:min(62vw,900px);pointer-events:none;z-index:0}
+.jn-leaf svg{display:block;width:100%;aspect-ratio:2700/2073;fill:#fff;opacity:.14}
+.jn-c.jn-main{background:linear-gradient(135deg,#FF9E7A,#FFD36E 35%,#9CCBFF 70%,#B79CFF);background-size:200% 200%;animation:sunflow 10s ease-in-out infinite}   /* no !important here: it would freeze background-position and stop the animation */   /* the full sunset: coral → sun → sky → lilac, drifting diagonally */
+@keyframes sunflow{0%,100%{background-position:0% 0%}50%{background-position:100% 100%}}
+.jn-main p{color:rgba(11,23,48,.75)}
+.jn-main .jn-go{background:var(--ink)}.jn-main .jn-go:hover{background:var(--ink);box-shadow:0 12px 28px rgba(11,23,48,.3)}
+@media (max-width:900px){.jn-leaf{width:120vw;right:-50vw;top:-2vh}}
+@media (prefers-reduced-motion:reduce){.jn-main{animation:none}}
+/* Join is the main action (big white card, magnet button); story + partner are secondary (quiet glass cards, text links) */
+.jn-g{grid-template-columns:1.25fr 1fr;grid-template-rows:auto auto}
+.jn-main{grid-row:span 2;min-height:420px;padding:clamp(32px,3.4vw,52px)!important;justify-content:space-between}
+.jn-main h3{font-size:clamp(40px,4.4vw,72px)!important;letter-spacing:-.04em!important;line-height:.98!important}
+.jn-main p{font-size:18px!important;max-width:34ch}
+.jn-go{margin-top:auto;align-self:flex-start;font-size:17px;padding:16px 26px}
+.jn-sub{background:rgba(255,255,255,.08)!important;color:#fff!important;min-height:0!important}
+.jn-sub .n{color:var(--sky)!important}.jn-sub p{opacity:.75!important}
+.jn-sub h3{font-size:clamp(22px,2vw,28px)!important}
+.jn-link{margin-top:auto;align-self:flex-start;font-family:var(--mono);font-weight:500;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:#fff;border-bottom:1px solid rgba(255,255,255,.5);padding-bottom:4px;transition:border-color .2s}
+.jn-link span{display:inline-block;transition:transform .25s}.jn-link:hover{border-color:#fff}.jn-link:hover span{transform:translateX(4px)}
+@media (max-width:900px){.jn-g{grid-template-columns:1fr}.jn-main{grid-row:auto;min-height:0}}
 .fb{display:flex;justify-content:space-between;align-items:center;gap:20px 32px;flex-wrap:wrap;margin-top:clamp(70px,10vh,110px);padding-top:28px;border-top:1px solid rgba(255,255,255,.18);font-size:13.5px}
 .fb .logos{display:flex;align-items:center;gap:20px}
 .fb .logos svg{height:28px;width:auto;color:#fff}
@@ -203,6 +295,7 @@ body.menu-open{overflow:hidden}
 /* header over the dark sections: dark glass + white text */
 .top.dark.ondark{background:rgba(11,23,48,.45);color:#fff}
 .top.dark.ondark .nav .cta{background:#fff;color:var(--ink)}
+.top.dark.ondark .nav .cta:hover{background:var(--pale)}
 
 /* reveal */
 html.js .rv{opacity:0;transform:translateY(28px);transition:opacity .8s,transform .8s cubic-bezier(.2,.7,.2,1)}
@@ -324,7 +417,7 @@ html.js .rv.in{opacity:1;transform:none}
     <div class="row">
       <p><b>FJX Tech Hub</b><br><span class="mute">Málaga, Costa del Sol</span></p>
       <p><b>1000+ people</b><br><span class="mute">Free to join, no gatekeeping</span></p>
-      <a class="btn" href="mailto:press@thefjx.com?subject=Apply%20to%20join%20Costa%20del%20Tech" id="applyBtn"><span class="mag-in">Apply to join <span class="arr">→</span></span></a>
+      <a class="btn" href="mailto:press@thefjx.com?subject=Apply%20to%20join%20Costa%20del%20Tech" id="applyBtn" data-magnet><span class="mag-in">Apply to join</span></a>
     </div>
   </section>
 
@@ -333,7 +426,6 @@ html.js .rv.in{opacity:1;transform:none}
       <div class="copy" id="copy">
         <h2>From sun and tourism to software and AI.</h2>
         <p>International tech companies are opening hubs here, engineers are relocating from across Europe, and a new generation of founders is building from the coast.</p>
-        <p class="film-note">A documentary by Moritz Jansen · FJX Media<br>Episode 2 is in production — <a href="mailto:press@thefjx.com?subject=Costa%20del%20Tech%20Episode%202">suggest a story →</a></p>
       </div>
       <div class="win" id="win" aria-label="Costa del Tech documentary teaser">
         <img class="poster" src="video/trailer-poster.webp" alt="">
@@ -354,45 +446,73 @@ html.js .rv.in{opacity:1;transform:none}
       </button>
     </div>
   </section>
-    <section class="events" id="events">
+    <section class="events dk" id="events">
     <div class="ev-head">
       <h2 class="ev-t">Our <span>events</span></h2>
       <a class="ev-all" href="https://luma.com/user/costadeltech" target="_blank" rel="noopener">All events on Luma ↗</a>
     </div>
-    <p class="ev-sec">Coming up</p>
-    <div class="ev-list">
-      <a class="ev-row up open" href="https://luma.com/user/costadeltech" target="_blank" rel="noopener"><span class="dt">Dec 2026 · TBA</span><h4>Community networking with GDG Málaga</h4><span class="nt">An end-of-year evening at the FJX Tech Hub</span><span class="ev-go">Get notified <span>→</span></span></a>
+    <!-- next event: a boxed grid — every fact in its own cell, the button is a cobalt cell -->
+    <div class="nx">
+      <div class="nx-main"><p class="sk"><i>↘</i> Next community night</p><div><h3 class="nx-t">Community networking<br><span>with GDG Málaga</span></h3><p class="nx-sub">An end-of-year evening at the FJX Tech Hub.</p></div></div>
+      <div class="nx-cell"><span class="nx-lab">When</span><span class="nx-val">December 2026 <br>date TBA</span></div>
+      <div class="nx-cell"><span class="nx-lab">Where</span><span class="nx-val">FJX Tech Hub <br>Málaga</span></div>
+      <a class="nx-cta" href="https://luma.com/user/costadeltech" target="_blank" rel="noopener"><span><span class="nx-lab">With GDG Málaga</span><b>Get notified <i class="nlx-arr" aria-hidden="true">↗</i></b></span></a>
+      <div class="nx-glue" id="glue" data-glue aria-hidden="true"><canvas></canvas></div>
     </div>
-    <p class="ev-sec">2026 so far</p>
-    <div class="ev-list">
-      <a class="ev-row" href="https://luma.com/user/costadeltech" target="_blank" rel="noopener" data-img="assets/gallery-why-malaga.webp"><span class="dt">7 Nov</span><h4>BiznagaFest at FYCMA</h4><span class="nt">The community at Málaga’s tech festival, as a partner</span></a>
-      <a class="ev-row" href="https://luma.com/user/costadeltech" target="_blank" rel="noopener" data-img="assets/gallery-eclipse.webp"><span class="dt">23 Oct</span><h4>Founder Deep Dive #1</h4><span class="nt">Maziar Nodehi, BioCircular Fiber, with Dr. Krisztina Edelmann</span></a>
-      <a class="ev-row" href="https://luma.com/user/costadeltech" target="_blank" rel="noopener" data-img="assets/gallery-why-malaga.webp"><span class="dt">22 &amp; 29 Oct</span><h4>Partner conferences</h4><span class="nt">Free member tickets for GInPS2026 and J On The Beach</span></a>
-      <a class="ev-row" href="https://luma.com/user/costadeltech" target="_blank" rel="noopener" data-img="assets/gallery-hub-opening.webp"><span class="dt">7 Jul</span><h4>FJX Tech Hub Málaga opening</h4><span class="nt">80+ registrations for 40 seats</span></a>
-      <a class="ev-row" href="https://luma.com/user/costadeltech" target="_blank" rel="noopener" data-img="assets/gallery-women-techmakers.webp"><span class="dt">Mar</span><h4>Women Techmakers × FJX</h4><span class="nt">70+ attendees, 20+ publications</span></a>
-      <a class="ev-row" href="https://luma.com/user/costadeltech" target="_blank" rel="noopener" data-img="assets/gallery-premiere.webp"><span class="dt">3 Mar</span><h4>World premiere: Costa del Tech</h4><span class="nt">The Pool, Marbella · 200+ guests</span></a>
-    </div>
+  </section>
+
+  <!-- ═══ FRIENDS & PARTNERS · right after the events block ═══ -->
+  <section class="partners" id="partners">
     <div class="cohost">
-      <p class="sk"><i>↘</i> Friends &amp; partners</p><h3 class="sh">Communities we build with</h3>
+      <h2 class="ev-t sec-t" style="margin-top:0">Communities <span>we build with</span></h2>
       <div class="pg5"><span class="it"><img src="assets/logo-women-techmakers.png" alt="Women Techmakers" style="--h:60px"></span><span class="it"><img src="assets/logo-gdg-malaga.svg" alt="Google Developer Groups Málaga" style="--h:24px"></span><span class="it"><img src="assets/logo-cursor.svg" alt="Cursor" style="--h:24px"></span><span class="it"><img src="assets/logo-malaga-ai.svg" alt="Málaga AI" style="--h:38px"></span><span class="it"><img src="assets/logo-j-on-the-beach.svg" alt="J On The Beach" class="inv" style="--h:38px"></span><span class="it"><img src="assets/logo-wordpress-malaga.svg" alt="WordPress Málaga" style="--h:40px"></span><span class="it"><img src="assets/logo-clash-lab.png" alt="CLASH Lab" style="--h:44px"></span><span class="it"><img src="assets/logo-les-roches.png" alt="" style="--h:44px;margin-right:-6px"><b>Les Roches</b></span><span class="it"><img src="assets/logo-sendaa.webp" alt="Sendaa Founders Hub" style="--h:52px"></span><span class="it"><img src="assets/logo-the-pool.png" alt="The Pool Marbella" class="inv" style="--h:30px"></span><span class="it"><b>BiznagaFest</b></span><span class="it"><b>Women in Tech</b></span><span class="it"><img src="assets/logo-icex.svg" alt="ICEX" class="inv" style="--h:30px"></span><span class="it"><img src="assets/logo-ciudad-de-malaga.png" alt="Ciudad de Málaga" style="--h:36px"></span><span class="it"><img src="assets/logo-malaga-film-office.png" alt="Málaga Film Office" class="inv" style="--h:36px"></span></div>
     </div>
-    <div class="peek" id="peek" aria-hidden="true"><img alt=""></div>
   </section>
+
+  <!-- ═══ 2026 SO FAR · photo tiles + partners ═══ -->
+  <section class="past" id="past">
+    <div class="ev-head"><h2 class="ev-t">2026 <span>so far</span></h2></div>
+    <div class="deck" id="deck">
+      <div class="deck-l"><ul><li><a href="https://luma.com/user/costadeltech" target="_blank" rel="noopener"><span class="dt">3 Mar</span><span class="nm">World premiere: Costa del Tech</span></a></li><li><a href="https://luma.com/user/costadeltech" target="_blank" rel="noopener"><span class="dt">Mar</span><span class="nm">Women Techmakers × FJX</span></a></li><li><a href="https://luma.com/user/costadeltech" target="_blank" rel="noopener"><span class="dt">7 Jul</span><span class="nm">FJX Tech Hub Málaga opening</span></a></li><li><a href="https://luma.com/user/costadeltech" target="_blank" rel="noopener"><span class="dt">12 Aug</span><span class="nm">Solar Eclipse</span></a></li><li><a href="https://luma.com/user/costadeltech" target="_blank" rel="noopener"><span class="dt">2026</span><span class="nm">Hiking</span></a></li></ul>
+      </div>
+      <div class="pile"><figure><img src="assets/gallery-premiere.webp?v=4" alt="World premiere: Costa del Tech" loading="lazy"><figcaption>The Pool, Marbella · 200+ guests</figcaption></figure><figure><img src="assets/gallery-women-techmakers.webp?v=4" alt="Women Techmakers × FJX" loading="lazy"><figcaption>IWD 2026 · 70+ attendees, 20+ publications</figcaption></figure><figure><img src="assets/gallery-hub-opening.webp?v=4" alt="FJX Tech Hub Málaga opening" loading="lazy"><figcaption>80+ registrations for 40 seats</figcaption></figure><figure><img src="assets/gallery-eclipse.webp?v=4" alt="Solar Eclipse" loading="lazy"></figure><figure><img src="assets/gallery-hiking.webp?v=4" alt="Hiking" loading="lazy"></figure></div>
+    </div>
+
+  </section>
+
+  <!-- ═══ NEWSLETTER · its own block, on the glue dots ═══ -->
+  <section class="nlblk" id="newsletter">
+    <!-- same boxed grid as the next event, in the light theme: facts in cells, a sunset CTA cell, glue dots underneath (MVP copy) -->
+    <div class="nlx">
+      <div class="nlx-main"><h3 class="nlx-t">The monthly<br><span>newsletter</span></h3></div>
+      <div class="nlx-cell"><span class="nlx-lab">How often</span><span class="nlx-val">Once <br>a month</span></div>
+      <div class="nlx-cell"><span class="nlx-lab">Readers</span><span class="nlx-val">800+ founders, engineers <br>and tech leaders</span></div>
+      <a class="nlx-cta" href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7470495908846104576" target="_blank" rel="noopener"><span><span class="nlx-lab">On LinkedIn</span><b>Subscribe <i class="nlx-arr" aria-hidden="true">↗</i></b></span></a>
+      <div class="nlx-dots" data-glue="invert" aria-hidden="true"><canvas></canvas></div>
+    </div>
+  </section>
+
+  <!-- ═══ THE HUB · scrubbed bento: scroll and the centre photo grows to fill the screen ═══ -->
+  <section class="hubg" id="hub">
+    <div class="ev-head"><h2 class="ev-t">FJX Tech <span>Hub</span></h2></div>
+    <div class="bento-pin"><div class="bento" id="bento"><figure class="b1"><img src="assets/hub-stairs.webp" alt="FJX Tech Hub" loading="lazy"></figure><figure class="b2"><img src="assets/hub-dj.webp" alt="DJ at the FJX Tech Hub" loading="lazy"></figure><figure class="b3"><img src="assets/hub-facade.webp" alt="FJX Tech Hub entrance" loading="lazy"></figure><figure class="b4"><img src="assets/hub-lounge.webp" alt="“One day, someone will say this is where it started.” — FJX Tech Hub lounge" loading="lazy"></figure><figure class="b5"><img src="assets/hub-talk.webp" alt="Community night at the FJX Tech Hub" loading="lazy"></figure><figure class="b6"><img src="assets/hub-cheers.webp" alt="Community members at the FJX Tech Hub" loading="lazy"></figure><figure class="b7"><img src="assets/hub-desks.webp" alt="Desks at the FJX Tech Hub" loading="lazy"></figure></div></div>
+  </section>
+
   <!-- ═══ TEAM · compact ═══ -->
   <section class="sec team">
-    <div class="rv"><p class="sk"><i>↘</i> Ambassadors &amp; team</p><h3 class="sh">The people who make it happen</h3></div>
+    <div class="rv"><h2 class="ev-t sec-t" style="margin-top:0">Our <span>team</span></h2></div>
     <div class="tm-g"><figure class="rv"><div class="disc"><div class="ph"><img src="assets/team-natalia-fel.webp" alt="" loading="lazy"></div></div><figcaption><b>Natalia Fel</b><small>Community Lead · CEO, FJX Tech</small></figcaption></figure><figure class="rv"><div class="disc"><div class="ph"><img src="assets/team-moritz-jansen.webp" alt="" loading="lazy"></div></div><figcaption><b>Moritz Jansen</b><small>Film director · FJX Media</small></figcaption></figure><figure class="rv"><div class="disc"><div class="ph"><img src="assets/team-tatiana-sinitsyna.webp" alt="" loading="lazy"></div></div><figcaption><b>Tatiana Sinitsyna</b><small>Community &amp; Events</small></figcaption></figure><figure class="rv"><div class="disc"><div class="ph"><img src="assets/team-silvia-garcia-guijo.webp" alt="" loading="lazy"></div></div><figcaption><b>Silvia García Guijo</b><small>Community Ambassador</small></figcaption></figure></div>
   </section>
 
-  <!-- ═══ JOIN + NEWSLETTER + FOOTER ═══ -->
+  <!-- ═══ JOIN + FOOTER ═══ -->
   <section class="sec join dk" id="join">
-    <div class="rv"><p class="sk"><i>↘</i> Community</p><h2 class="st">Join, speak,<br><span>host or partner.</span></h2></div>
+    <div class="jn-leaf" aria-hidden="true"><svg viewBox="0 0 2700 2073"><use href="#leaf" width="2700" height="2073"/></svg></div>
+    <div class="rv"><h2 class="st" style="margin-top:0">Join, speak,<br><span>host or partner.</span></h2></div>
     <div class="jn-g">
-      <article class="jn-c rv" id="member"><span class="n">Member</span><h3>Join the community</h3><p>A few lines about you and your LinkedIn. We reply by email.</p><a class="bt cob" href="mailto:press@thefjx.com?subject=Apply%20to%20join%20Costa%20del%20Tech">Apply to join <span>→</span></a></article>
-      <article class="jn-c rv" id="collaborator"><span class="n">Collaborator</span><h3>Share your story</h3><p>Pitch a talk, a Deep Dive or an interview — or add your event to the Digest.</p><a class="bt cob" href="mailto:press@thefjx.com?subject=Speak%20or%20share%20a%20story%20at%20Costa%20del%20Tech">Pitch a story <span>→</span></a></article>
-      <article class="jn-c rv" id="partner"><span class="n">Partner</span><h3>Partner with us</h3><p>Co-host an event, share tickets or put your company in Episode 2.</p><a class="bt cob" href="mailto:press@thefjx.com?subject=Partner%20with%20Costa%20del%20Tech">Get in touch <span>→</span></a></article>
+      <article class="jn-c jn-main rv" id="member"><h3>Become a member</h3><p>A few lines about you and your LinkedIn.<br>We reply by email.</p><a class="btn mbtn jn-go" data-magnet href="mailto:press@thefjx.com?subject=Apply%20to%20join%20Costa%20del%20Tech"><span class="mag-in">Apply to join</span></a></article>
+      <article class="jn-c jn-sub rv" id="collaborator"><span class="n">Collaborator</span><h3>Share your story</h3><p>Pitch a talk, a Deep Dive or an interview — or add your event to the Digest.</p><a class="jn-link" href="mailto:press@thefjx.com?subject=Speak%20or%20share%20a%20story%20at%20Costa%20del%20Tech">Pitch a story <span aria-hidden="true">→</span></a></article>
+      <article class="jn-c jn-sub rv" id="partner"><span class="n">Partner</span><h3>Partner with us</h3><p>Co-host an event, share tickets or put your company in Episode 2.</p><a class="jn-link" href="mailto:press@thefjx.com?subject=Partner%20with%20Costa%20del%20Tech">Get in touch <span aria-hidden="true">→</span></a></article>
     </div>
-    <div class="nl rv" id="newsletter"><div><b>The monthly newsletter</b><span>News, interviews and the Events Digest — for 800+ people on the coast.</span></div><a class="bt wh" href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7470495908846104576" target="_blank" rel="noopener">Subscribe on LinkedIn <span>↗</span></a></div>
     <footer class="fb">
       <div class="logos"><svg viewBox="0 0 3354 2465" aria-hidden="true"><use href="#cdtLogo"/></svg><img src="assets/fjx-tech-logo-white.png" alt="FJX Tech"></div>
       <nav><a href="https://luma.com/user/costadeltech" target="_blank" rel="noopener">Luma</a><a href="https://www.linkedin.com/company/costadeltech" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.youtube.com/@FJX_Group" target="_blank" rel="noopener">YouTube</a><a href="mailto:press@thefjx.com">press@thefjx.com</a><a href="https://www.thefjx.com/privacy-policy" target="_blank" rel="noopener">Privacy</a></nav>
@@ -402,26 +522,30 @@ html.js .rv.in{opacity:1;transform:none}
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/EasePack.min.js"></script>
 <script>
 /* Magnetic "Apply to join" (GSAP demo: "magnetic only, overwrite: true").
    Inside an invisible circle around the button it is pulled toward the cursor, the label a bit more
    than the pill (parallax); when the cursor leaves the circle it springs back with an elastic ease.
    Only for mouse/trackpad, and off when the system asks for reduced motion. */
 (function(){
-  const btn=document.getElementById('applyBtn'); if(!btn||!window.gsap) return;
+  if(!window.gsap) return;
   if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const inner=btn.querySelector('.mag-in'), RADIUS=140, PULL=.35, PULL_IN=.1;
-  let inside=false;
-  addEventListener('pointermove',e=>{
-    const r=btn.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2, dx=e.clientX-cx, dy=e.clientY-cy;
-    const near=Math.hypot(dx,dy)<RADIUS+Math.max(r.width,r.height)/2;
-    if(near){inside=true;
-      gsap.to(btn,{x:dx*PULL,y:dy*PULL,duration:.45,ease:'power3.out',overwrite:true});
-      gsap.to(inner,{x:dx*PULL_IN,y:dy*PULL_IN,duration:.45,ease:'power3.out',overwrite:true});
-    }else if(inside){inside=false;
-      gsap.to([btn,inner],{x:0,y:0,duration:1.1,ease:'elastic.out(1,0.35)',overwrite:true});
-    }
-  },{passive:true});
+  const RADIUS=140, PULL=.35, PULL_IN=.1;
+  document.querySelectorAll('[data-magnet]').forEach(btn=>{
+    const inner=btn.querySelector('.mag-in'); let inside=false;
+    addEventListener('pointermove',e=>{
+      const r=btn.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2, dx=e.clientX-cx, dy=e.clientY-cy;
+      const near=Math.hypot(dx,dy)<RADIUS+Math.max(r.width,r.height)/2;
+      if(near){inside=true;
+        gsap.to(btn,{x:dx*PULL,y:dy*PULL,duration:.45,ease:'power3.out',overwrite:true});
+        gsap.to(inner,{x:dx*PULL_IN,y:dy*PULL_IN,duration:.45,ease:'power3.out',overwrite:true});
+      }else if(inside){inside=false;
+        gsap.to([btn,inner],{x:0,y:0,duration:1.1,ease:'elastic.out(1,0.35)',overwrite:true});
+      }
+    },{passive:true});
+  });
 })();
 </script>
 <script>
@@ -505,16 +629,6 @@ TechText(document.getElementById('wm'),{text:'Costa del Tech',fontFamily:'Poppin
 })();
 </script>
 <script>
-/* Events: a past event's photo follows the cursor (mouse only) */
-(function(){const peek=document.getElementById('peek'); if(!peek||!matchMedia('(pointer:fine)').matches) return;
-  const img=peek.querySelector('img');
-  document.querySelectorAll('.ev-row[data-img]').forEach(r=>{const pre=new Image();pre.src=r.dataset.img;
-    r.addEventListener('mouseenter',()=>{img.src=r.dataset.img;peek.classList.add('on')});
-    r.addEventListener('mouseleave',()=>peek.classList.remove('on'))});
-  addEventListener('mousemove',e=>{peek.style.left=e.clientX+'px';peek.style.top=e.clientY+'px'},{passive:true});
-})();
-</script>
-<script>
 /* reveal on scroll + header turns dark glass over the dark sections */
 (function(){
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -10% 0px'});
@@ -524,6 +638,95 @@ TechText(document.getElementById('wm'),{text:'Costa del Tech',fontFamily:'Poppin
   addEventListener('scroll',hdr,{passive:true});addEventListener('resize',hdr);hdr();
 })();
 </script>
-<script src="music-player.js" data-show-from="#events"></script>
+<script>
+/* Glue dots (see CSS note). Springs pull every dot back to its rest spot; the pointer drags nearby dots toward it
+   and swells them; a press sends a damped ripple outward. With the music player on, each column swells with its
+   frequency band and the kick shakes the rows. Pauses off-screen; static with reduced motion. */
+document.querySelectorAll('[data-glue]').forEach(function(box){
+  const cv=box.querySelector('canvas'), ctx=cv.getContext('2d');
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const P={spacing:52,r:13,pad:44,tension:.085,damping:.8,travel:.06,bounce:14,decay:2.6,freq:12,spread:.18,reach:200,pull:22,swell:.25};
+  let W=0,H=0,dpr=1,dots=[],ripples=[],ptr=null,raf=0,visible=false;
+  function layout(){
+    const r=cv.getBoundingClientRect(); dpr=Math.min(devicePixelRatio||1,2); W=r.width; H=r.height;
+    cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr); ctx.setTransform(dpr,0,0,dpr,0,0);
+    const sp=W<600?38:P.spacing, cols=Math.max(2,Math.round((W-2*P.pad)/sp)), rows=Math.max(2,Math.round((H-2*P.pad)/sp));
+    const gx=(W-2*P.pad)/cols, gy=(H-2*P.pad)/rows; dots=[];
+    for(let j=0;j<=rows;j++)for(let i=0;i<=cols;i++){const x=P.pad+i*gx,y=P.pad+j*gy;dots.push({rx:x,ry:y,x,y,vx:0,vy:0,s:1,ph:Math.random()*6.3})}
+    P.cell=(gx+gy)/2; P.rr=W<600?9:P.r; draw();
+  }
+  function draw(){
+    const inv=box.dataset.glue==='invert'; ctx.fillStyle=inv?'#fff':'#000'; ctx.fillRect(0,0,W,H); ctx.fillStyle=inv?'#000':'#fff';   // invert: dark dots on white
+    for(const d of dots){ctx.beginPath();ctx.arc(d.x,d.y,P.rr*d.s,0,Math.PI*2);ctx.fill()}
+  }
+  function step(now){
+    raf=0; const t=now/1000;
+    const spec=window.cdtSpectrum&&window.cdtSpectrum();
+    let kick=0; if(spec){const b=spec.bins,k=Math.round(90/spec.hz);kick=Math.max(0,b[k]/255-.6)/.4}   // music on: the kick's pulse, 0–1
+    ripples=ripples.filter(rp=>t-rp.t<3.5);
+    for(const d of dots){
+      let tx=d.rx,ty=d.ry,sw=1;
+      if(ptr){const dx=ptr.x-d.rx,dy=ptr.y-d.ry,dist=Math.hypot(dx,dy);
+        if(dist<P.reach){const f=1-dist/P.reach,e=f*f*(3-2*f);if(dist>0.001){tx+=dx/dist*P.pull*e;ty+=dy/dist*P.pull*e}sw+=P.swell*e}}
+      for(const rp of ripples){const dx=d.rx-rp.x,dy=d.ry-rp.y,dist=Math.hypot(dx,dy),lt=t-rp.t-(dist/P.cell)*P.travel;
+        if(lt>0&&dist>0.001){const a=P.bounce*Math.exp(-P.decay*lt)*Math.exp(-P.spread*dist/P.cell)*Math.sin(P.freq*lt);tx+=dx/dist*a;ty+=dy/dist*a}}
+      if(spec){const c=d.rx/W, bin=Math.min(spec.bins.length-1,Math.round(60*Math.pow(80,c)/spec.hz)),   // columns = 60 Hz (left) … 4.8 kHz (right), log scale
+          v=Math.min(1,spec.bins[bin]/255*(1+c*.9));                                                          // lift the quieter highs
+        sw+=Math.min(.45,v*v*.4+kick*.12); ty+=Math.sin(t*26+d.ph)*kick*2.5}
+      d.vx=(d.vx+(tx-d.x)*P.tension)*P.damping; d.vy=(d.vy+(ty-d.y)*P.tension)*P.damping;
+      d.x+=d.vx; d.y+=d.vy; d.s+=(sw-d.s)*.15;
+    }
+    draw();
+    const moving=spec||ptr||ripples.length||dots.some(d=>Math.abs(d.vx)+Math.abs(d.vy)>.02||Math.abs(d.s-1)>.002);
+    if(moving&&visible) raf=requestAnimationFrame(step);
+  }
+  const wake=()=>{if(!raf&&visible&&!reduce) raf=requestAnimationFrame(step)};
+  const pos=e=>{const r=cv.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top}};
+  box.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;ptr=pos(e);wake()});
+  box.addEventListener('pointerleave',()=>{ptr=null;wake()});
+  box.addEventListener('pointerdown',e=>{const p=pos(e);ripples.push({x:p.x,y:p.y,t:performance.now()/1000});wake()});
+  new IntersectionObserver(([en])=>{visible=en.isIntersecting;if(visible)wake()}).observe(box);
+  addEventListener('cdt-audio',e=>{if(e.detail==='player')setTimeout(wake,600)});   // music on → dots start dancing
+  new ResizeObserver(layout).observe(box);
+  layout();
+});
+</script>
+<script>
+/* 2026 so far · deck: hover (or tap) a name → its photo comes to the front; the others fan out up-right behind it */
+(function(){const root=document.getElementById('deck');if(!root)return;
+  const lis=[...root.querySelectorAll('li')],figs=[...root.querySelectorAll('figure')],n=figs.length;
+  const show=a=>{lis.forEach((l,k)=>l.classList.toggle('on',k===a));figs.forEach((f,k)=>{const d=(k-a+n)%n;
+    f.style.zIndex=n-d;f.style.transform=`translate(${-d*16}px,${-d*16}px) scale(${1-d*.04})`;f.style.opacity=d>3?0:1})};
+  lis.forEach((l,i)=>{l.addEventListener('mouseenter',()=>show(i));l.addEventListener('focusin',()=>show(i))});show(0)})();
+</script>
+<script>
+/* The Hub bento: pin the grid and grow it around the centre cell until that photo covers the pinned area.
+   The grid is resized (real width/height), not CSS-scaled, so every photo is redrawn sharp at each size.
+   ExpoScaleEase keeps the zoom feeling even. Static grid with reduced motion. */
+(function(){
+  const grid=document.getElementById('bento'); if(!grid||!window.gsap||!window.ScrollTrigger) return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  gsap.registerPlugin(ScrollTrigger,ExpoScaleEase);
+  const pin=grid.parentElement;
+  let st;
+  function build(){
+    st&&st.kill(true); grid.removeAttribute('style');
+    const ps=getComputedStyle(pin), pl=parseFloat(ps.paddingLeft), pt=parseFloat(ps.paddingTop);
+    const W=grid.offsetWidth, H=grid.offsetHeight, PW=pin.clientWidth, PH=pin.clientHeight, gap=parseFloat(getComputedStyle(grid).columnGap)||12;
+    // grow factor so the centre cell ((size − 2·gap)/3) covers the whole pinned area
+    const S=Math.max((3*PW+2*gap)/W,(3*PH+2*gap)/H)*1.01;
+    const c0x=pl+W/2, c0y=pt+H/2, c1x=PW/2, c1y=PH/2;
+    gsap.set(grid,{position:'absolute',left:pl,top:pt,width:W,height:H});
+    const o={s:1};
+    const tw=gsap.to(o,{s:S,ease:'expoScale(1,'+S.toFixed(3)+')',
+      onUpdate(){const k=o.s,t=(k-1)/(S-1),w=W*k,h=H*k,cx=c0x+(c1x-c0x)*t,cy=c0y+(c1y-c0y)*t;
+        grid.style.width=w+'px';grid.style.height=h+'px';grid.style.left=(cx-w/2)+'px';grid.style.top=(cy-h/2)+'px'}});
+    st=ScrollTrigger.create({trigger:pin,start:'top top',end:'+=150%',pin:true,scrub:true,animation:tw});
+  }
+  build(); addEventListener('resize',()=>{clearTimeout(build.t);build.t=setTimeout(()=>{build();ScrollTrigger.refresh()},200)});
+  addEventListener('load',()=>{build();ScrollTrigger.refresh()});
+})();
+</script>
+<script src="music-player.js?v=6" data-show-from="#events" data-hide-at="#join"></script>
 </body>
 </html>
